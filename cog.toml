@@ -1,0 +1,33 @@
+ignore_merge_commits = true
+
+branch_whitelist = ["main", "hotfix/**"]
+
+pre_bump_hooks = [
+    "git checkout -b release/{{version}}",
+    "mvn verify $MAVEN_CLI_OPTS -Prelease",
+    "mvn versions:set -DnewVersion={{version}}",
+]
+
+post_bump_hooks = [
+    # Push to release branch
+    "git push --set-upstream origin release/{{version}}",
+    "git push origin {{version}}",
+    # Bump SNAPSHOT version on main branch
+    "git checkout main",
+    "git merge --no-ff release/{{version}}",
+    "mvn versions:set -DnewVersion={{version+1minor-SNAPSHOT}}",
+    "git add .",
+    "git commit -m \"chore(snapshot): bump snapshot to {{version+1minor-SNAPSHOT}}\"",
+    "git push",
+    "git push origin --delete release/{{version}}"
+]
+
+[changelog]
+path = "CHANGELOG.md"
+template = "remote"
+remote = "github.com"
+repository = "pokemon--tcg-collector-backend"
+owner = "BeuBen"
+authors = [
+    { signature = "Benjamin Beuscart", username = "BeuBen" },
+]
