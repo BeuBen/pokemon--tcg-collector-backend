@@ -1,0 +1,13 @@
+package com.beuben.pokemontcgcollectorbackend;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class PokemonTcgCollectorBackendApplicationTests {
+
+  @Test
+  void contextLoads() {
+  }
+
+}
