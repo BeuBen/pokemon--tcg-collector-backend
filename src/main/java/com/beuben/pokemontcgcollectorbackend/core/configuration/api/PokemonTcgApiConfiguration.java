@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "api.pokemontcg")
-public class PokemonTcgApi {
+public class PokemonTcgApiConfiguration {
   private String endpoint;
   private String key;
 }
