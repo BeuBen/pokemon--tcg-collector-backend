@@ -1,3 +1,15 @@
 spring:
     application:
         name: pokemon--tcg-collector-backend
+
+api:
+    pokemontcg:
+        endpoint: https://api.pokemontcg.io/v2
+        key: ${POKEMON_TCG_API_KEY}
+
+postgres:
+    host: pokemon--tcg-collector-5562.6zw.aws-eu-west-1.cockroachlabs.cloud
+    port: 26257
+    database: pokemon_tcg_collector
+    username: tcg-collector
+    password: ${POSTGRES_PASSWORD}
