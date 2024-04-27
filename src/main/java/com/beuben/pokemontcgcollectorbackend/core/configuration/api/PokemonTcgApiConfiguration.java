@@ -8,6 +8,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 @ConfigurationProperties(prefix = "api.pokemontcg")
 public class PokemonTcgApiConfiguration {
-  private String endpoint;
+  private String url;
   private String key;
 }

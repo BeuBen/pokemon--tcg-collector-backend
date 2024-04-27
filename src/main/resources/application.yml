@@ -9,7 +9,7 @@ spring:
 
 api:
     pokemontcg:
-        endpoint: https://api.pokemontcg.io/v2
+        url: https://api.pokemontcg.io/v2
         key: ${POKEMON_TCG_API_KEY}
 
 postgres:
