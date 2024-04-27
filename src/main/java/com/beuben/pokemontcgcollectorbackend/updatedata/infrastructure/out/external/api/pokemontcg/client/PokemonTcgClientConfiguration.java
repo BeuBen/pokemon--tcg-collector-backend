@@ -26,7 +26,7 @@ public class PokemonTcgClientConfiguration {
         .exchangeStrategies(ExchangeStrategies.builder()
             .codecs(configurer -> configurer
                 .defaultCodecs()
-                .maxInMemorySize(16*1024*1024))
+                .maxInMemorySize(Constants.HTTP_MAX_IN_MEMORY_SIZE))
             .build())
         .build();
   }
