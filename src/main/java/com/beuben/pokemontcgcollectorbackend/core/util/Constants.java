@@ -9,9 +9,5 @@ public class Constants {
   public static final String SWAGGER_GROUP_UPDATE_DATA = "Update data";
   public static final String SWAGGER_PATH_UPDATE_DATA = "/**/update-data/**";
 
-  //DATABASE
-  public static final String POSTGRES_POOL_NAME = "pokemon-tcg-collector-hikari";
-  public static final String JDBC_UNFORMATTED_URL = "jdbc:postgresql://%s:%s/%s";
-
   private Constants() {}
 }
