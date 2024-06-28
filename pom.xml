@@ -17,7 +17,7 @@
   <properties>
     <java.version>21</java.version>
     <starter-webflux.version>2.5.0</starter-webflux.version>
-    <lombok.version>1.18.32</lombok.version>
+    <lombok.version>1.18.34</lombok.version>
     <postgresql.version>42.7.3</postgresql.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <h2.version>2.2.224</h2.version>
