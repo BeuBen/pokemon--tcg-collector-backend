@@ -20,6 +20,7 @@
     <lombok.version>1.18.34</lombok.version>
     <postgresql.version>42.7.3</postgresql.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
+    <liquibase.version>4.28.0</liquibase.version>
     <h2.version>2.3.230</h2.version>
   </properties>
   <dependencies>
@@ -63,6 +64,11 @@
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>${postgresql.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+      <version>${liquibase.version}</version>
     </dependency>
 
     <!-- MAPSTRUCT -->
