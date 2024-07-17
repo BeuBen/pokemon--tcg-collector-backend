@@ -1,4 +1,4 @@
-package com.beuben.pokemontcgcollectorbackend.fixture.core.configuration.api;
+package com.beuben.pokemontcgcollectorbackend.fixture.core;
 
 import lombok.Getter;
 

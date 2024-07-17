@@ -1,4 +1,4 @@
-package com.beuben.pokemontcgcollectorbackend.core.configuration.api;
+package com.beuben.pokemontcgcollectorbackend.core.configuration.application.pokemontcg;
 
 import lombok.Getter;
 import lombok.Setter;

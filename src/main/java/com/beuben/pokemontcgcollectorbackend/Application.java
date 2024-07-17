@@ -1,6 +1,6 @@
 package com.beuben.pokemontcgcollectorbackend;
 
-import com.beuben.pokemontcgcollectorbackend.core.configuration.api.PokemonTcgApiConfiguration;
+import com.beuben.pokemontcgcollectorbackend.core.configuration.application.pokemontcg.PokemonTcgApiConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

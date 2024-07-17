@@ -1,6 +1,6 @@
-package com.beuben.pokemontcgcollectorbackend.core.configuration.api;
+package com.beuben.pokemontcgcollectorbackend.core.configuration.application.pokemontcg;
 
-import com.beuben.pokemontcgcollectorbackend.fixture.core.configuration.api.PokemonTcgApiFixture;
+import com.beuben.pokemontcgcollectorbackend.fixture.core.PokemonTcgApiFixture;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,15 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @EnableConfigurationProperties(PokemonTcgApiConfiguration.class)
 @TestPropertySource("classpath:application.properties")
 class PokemonTcgApiConfigurationTest {
+
   @Autowired
   private PokemonTcgApiConfiguration pokemonTcgApiConfiguration;
 
   @Test
-  void whenBindingPropertiesFile_thenAllFieldsAreSet() {
+  void binding_property_file_should_return_object_with_all_fields_set() {
     // ASSIGN
     final var expectedApiConfig = new PokemonTcgApiFixture();
-
-    // ACT
 
     // ASSERT
     assertEquals(expectedApiConfig.getUrl(), pokemonTcgApiConfiguration.getUrl());

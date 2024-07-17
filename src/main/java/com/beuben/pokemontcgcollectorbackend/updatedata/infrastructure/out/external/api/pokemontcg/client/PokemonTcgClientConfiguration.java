@@ -1,6 +1,6 @@
 package com.beuben.pokemontcgcollectorbackend.updatedata.infrastructure.out.external.api.pokemontcg.client;
 
-import com.beuben.pokemontcgcollectorbackend.core.configuration.api.PokemonTcgApiConfiguration;
+import com.beuben.pokemontcgcollectorbackend.core.configuration.application.pokemontcg.PokemonTcgApiConfiguration;
 import com.beuben.pokemontcgcollectorbackend.core.util.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
