@@ -1,4 +1,4 @@
-package com.beuben.pokemontcgcollectorbackend.core.configuration;
+package com.beuben.pokemontcgcollectorbackend.core.configuration.swagger;
 
 import com.beuben.pokemontcgcollectorbackend.core.util.Constants;
 import org.springdoc.core.models.GroupedOpenApi;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfiguration {
 
   @Bean
-  GroupedOpenApi updateDataApi() {
+  GroupedOpenApi updateData() {
     return GroupedOpenApi.builder()
         .group(Constants.SWAGGER_GROUP_UPDATE_DATA)
         .pathsToMatch(Constants.SWAGGER_PATH_UPDATE_DATA)
