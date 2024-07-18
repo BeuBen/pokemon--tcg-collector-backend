@@ -2,5 +2,10 @@ package com.beuben.pokemontcgcollectorbackend.refresh.infrastructure.out.externa
 
 import java.util.List;
 
-public record PokemonTcgCardWrapperDTO(List<PokemonTcgCardDTO> data) {
+public record PokemonTcgCardWrapperDTO(
+    List<PokemonTcgCardDTO> data,
+    Integer page,
+    Integer pageSize,
+    Integer count,
+    Integer totalCount) {
 }

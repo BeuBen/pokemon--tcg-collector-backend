@@ -1,23 +1,26 @@
 package com.beuben.pokemontcgcollectorbackend.refresh.infrastructure.out.external.api.pokemontcg;
 
-import com.beuben.pokemontcgcollectorbackend.refresh.infrastructure.out.external.dto.PokemonTcgCardDTO;
 import com.beuben.pokemontcgcollectorbackend.refresh.infrastructure.out.external.dto.PokemonTcgCardWrapperDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import static com.beuben.pokemontcgcollectorbackend.refresh.infrastructure.out.external.api.pokemontcg.PokemonTcgApiEndpoints.CARDS;
+import static com.beuben.pokemontcgcollectorbackend.refresh.infrastructure.out.external.api.pokemontcg.PokemonTcgApiParam.PAGE;
 
 @Component
 @RequiredArgsConstructor
 public class PokemonTcgApi {
   private final WebClient pokemonTcgClient;
 
-  public Flux<PokemonTcgCardDTO> findAll() {
+  public Mono<PokemonTcgCardWrapperDTO> findAll(final Integer page) {
     return pokemonTcgClient
         .get()
-        .uri(PokemonTcgApiEndpoints.CARDS)
+        .uri(uri -> uri.path(CARDS)
+            .queryParam(PAGE, page)
+            .build())
         .retrieve()
-        .bodyToMono(PokemonTcgCardWrapperDTO.class)
-        .flatMapIterable(PokemonTcgCardWrapperDTO::data);
+        .bodyToMono(PokemonTcgCardWrapperDTO.class);
   }
 }
