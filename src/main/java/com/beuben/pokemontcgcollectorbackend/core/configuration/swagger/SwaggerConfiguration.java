@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfiguration {
 
   @Bean
-  GroupedOpenApi updateData() {
+  GroupedOpenApi synchronization() {
     return GroupedOpenApi.builder()
-        .group(Constants.SWAGGER_GROUP_UPDATE_DATA)
-        .pathsToMatch(Constants.SWAGGER_PATH_UPDATE_DATA)
+        .group(Constants.SWAGGER_GROUP_SYNCHRO)
+        .pathsToMatch(Constants.SWAGGER_PATH_SYNCHRO)
         .build();
   }
 }

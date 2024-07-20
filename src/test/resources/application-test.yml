@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: pokemon--tcg-collector-backend
+  liquibase:
+    enabled: false
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/testdatabase?ssl=true
+    username: tcg-collector
+    password: 1234
+
+api:
+  pokemontcg:
+    key: 123456
+    url: https://api.pokemontcg.io/v2

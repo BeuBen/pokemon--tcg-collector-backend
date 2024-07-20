@@ -6,8 +6,8 @@ public class Constants {
   public static final Integer HTTP_MAX_IN_MEMORY_SIZE = 16*1024*1024;
 
   //SWAGGER
-  public static final String SWAGGER_GROUP_UPDATE_DATA = "Update data";
-  public static final String SWAGGER_PATH_UPDATE_DATA = "/**/update-data/**";
+  public static final String SWAGGER_GROUP_SYNCHRO = "Synchronization";
+  public static final String SWAGGER_PATH_SYNCHRO = "/**/synchro/**";
 
   private Constants() {}
 }
