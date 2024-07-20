@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: pokemon--tcg-collector-backend
+  liquibase:
+    change-log: liquibase/master.xml
+    url: jdbc:postgresql://pokemon--tcg-collector-5562.6zw.aws-eu-west-1.cockroachlabs.cloud:26257/pokemon_tcg_collector?ssl=true
+    user: tcg-collector
+    password: ${POSTGRES_PASSWORD}
+  r2dbc:
+    url: r2dbc:postgresql://pokemon--tcg-collector-5562.6zw.aws-eu-west-1.cockroachlabs.cloud:26257/pokemon_tcg_collector?ssl=true
+    username: tcg-collector
+    password: ${POSTGRES_PASSWORD}
+
+api:
+  pokemontcg:
+    key: ${POKEMON_TCG_API_KEY}
+    url: https://api.pokemontcg.io/v2

@@ -16,12 +16,12 @@
   <description>pokemon--tcg-collector-backend</description>
   <properties>
     <java.version>21</java.version>
-    <starter-webflux.version>2.6.0</starter-webflux.version>
     <lombok.version>1.18.34</lombok.version>
+    <r2dbc-postgresql.version>1.0.5.RELEASE</r2dbc-postgresql.version>
     <postgresql.version>42.7.3</postgresql.version>
-    <mapstruct.version>1.5.5.Final</mapstruct.version>
     <liquibase.version>4.28.0</liquibase.version>
-    <h2.version>2.3.230</h2.version>
+    <mapstruct.version>1.5.5.Final</mapstruct.version>
+    <starter-webflux.version>2.6.0</starter-webflux.version>
   </properties>
   <dependencies>
     <!-- SPRING BOOT -->
@@ -41,12 +41,6 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>${h2.version}</version>
-      <scope>test</scope>
-    </dependency>
 
     <!-- LOMBOK -->
     <dependency>
@@ -55,10 +49,15 @@
       <version>${lombok.version}</version>
     </dependency>
 
-  <!-- DATABASE MANAGEMENT -->
+    <!-- DATABASE MANAGEMENT -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>r2dbc-postgresql</artifactId>
+      <version>${r2dbc-postgresql.version}</version>
     </dependency>
     <dependency>
       <groupId>org.postgresql</groupId>
