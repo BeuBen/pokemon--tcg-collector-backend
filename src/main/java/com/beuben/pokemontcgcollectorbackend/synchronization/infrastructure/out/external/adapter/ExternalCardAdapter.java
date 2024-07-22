@@ -20,6 +20,8 @@ public class ExternalCardAdapter implements CardProvider {
   private final PokemonTcgApi pokemonTcgApi;
   private final CardMapper mapper;
 
+  //TODO ajouter du cache sur ce qu'on récupère de l'api pokemontcg.io
+
   @Override
   public Flux<Card> findAll() {
     return fetchAllPages()

@@ -9,6 +9,14 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfiguration {
 
   @Bean
+  GroupedOpenApi actuator() {
+    return GroupedOpenApi.builder()
+        .group(Constants.SWAGGER_GROUP_ACTUATOR)
+        .pathsToMatch(Constants.SWAGGER_PATH_ACTUATOR)
+        .build();
+  }
+
+  @Bean
   GroupedOpenApi synchronization() {
     return GroupedOpenApi.builder()
         .group(Constants.SWAGGER_GROUP_SYNCHRO)

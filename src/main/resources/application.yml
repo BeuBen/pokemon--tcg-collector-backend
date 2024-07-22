@@ -11,6 +11,18 @@ spring:
     username: tcg-collector
     password: ${POSTGRES_PASSWORD}
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  show-actuator: true
+
 api:
   pokemontcg:
     key: ${POKEMON_TCG_API_KEY}

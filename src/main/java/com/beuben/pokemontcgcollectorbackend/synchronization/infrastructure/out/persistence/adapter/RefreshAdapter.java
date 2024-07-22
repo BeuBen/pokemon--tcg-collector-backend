@@ -68,7 +68,4 @@ public class RefreshAdapter implements RefreshProvider {
     return cardRepository.deleteAll(toDelete)
         .then();
   }
-
-  //TODO ajouter les endpoints actuator au swagger
-  //TODO ajouter du cache sur ce qu'on récupère de l'api pokemontcg.io
 }
