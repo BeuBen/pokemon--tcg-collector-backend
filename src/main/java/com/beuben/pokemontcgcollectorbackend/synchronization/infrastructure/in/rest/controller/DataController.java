@@ -59,7 +59,7 @@ public class DataController {
       })
   @GetMapping("/cards/internal")
   public Mono<ResponseEntity<List<Card>>> findAllPersistedCards() {
-    //TODO this will be moved to the main feature package later
+    //TODO this will be moved to the main feature collection package later
     return fetchAllPersistedCards.execute()
         .collectList()
         .map(ResponseEntity::ok);
