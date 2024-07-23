@@ -2,7 +2,7 @@ package com.beuben.pokemontcgcollectorbackend.synchronization.application.usecas
 
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.in.FetchAllCards;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.out.provider.CardProvider;
-import com.beuben.pokemontcgcollectorbackend.synchronization.domain.card.Card;
+import com.beuben.pokemontcgcollectorbackend.synchronization.domain.Card;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
