@@ -21,6 +21,7 @@ management:
       show-details: always
 
 springdoc:
+  version: '@project.version@'
   show-actuator: true
 
 api:
