@@ -1,7 +1,7 @@
-package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.controller;
+package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.controller;
 
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchAllCards;
 import com.beuben.pokemontcgcollectorbackend.collection.domain.Card;
-import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.in.FetchAllExistingCards;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,13 +20,13 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/synchro/data", produces = MediaType.APPLICATION_JSON_VALUE)
-public class DataController {
-  private final FetchAllExistingCards fetchAllExistingCards;
+@RequestMapping(value = "/collection/cards", produces = MediaType.APPLICATION_JSON_VALUE)
+public class CardController {
+  private final FetchAllCards fetchAllCards;
 
   @Operation(
-      summary = "Fetch all existing cards",
-      description = "Fetch all existing cards from pokemontcg.io API",
+      summary = "Fetch all cards",
+      description = "Fetch all cards from database",
       tags = {"Card"})
   @ApiResponses(
       value = {
@@ -36,9 +36,9 @@ public class DataController {
               content = {@Content(array = @ArraySchema(
                   schema = @Schema(implementation = Card.class)))})
       })
-  @GetMapping("/cards")
-  public Mono<ResponseEntity<List<Card>>> findAllExistingCards() {
-    return fetchAllExistingCards.execute()
+  @GetMapping
+  public Mono<ResponseEntity<List<Card>>> findAllCards() {
+    return fetchAllCards.execute()
         .collectList()
         .map(ResponseEntity::ok);
   }

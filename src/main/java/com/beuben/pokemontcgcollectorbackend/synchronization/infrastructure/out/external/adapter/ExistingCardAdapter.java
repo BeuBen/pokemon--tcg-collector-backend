@@ -1,12 +1,11 @@
 package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.adapter;
 
-import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.out.provider.CardProvider;
-import com.beuben.pokemontcgcollectorbackend.synchronization.domain.Card;
+import com.beuben.pokemontcgcollectorbackend.collection.domain.Card;
+import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.out.provider.ExistingCardProvider;
 import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.api.pokemontcg.PokemonTcgApi;
 import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.dto.PokemonTcgCardWrapperDTO;
 import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.mapper.CardMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,8 +14,7 @@ import static com.beuben.pokemontcgcollectorbackend.synchronization.infrastructu
 
 @Component
 @RequiredArgsConstructor
-@Qualifier("externalCardAdapter")
-public class ExternalCardAdapter implements CardProvider {
+public class ExistingCardAdapter implements ExistingCardProvider {
   private final PokemonTcgApi pokemonTcgApi;
   private final CardMapper mapper;
 

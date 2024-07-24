@@ -1,4 +1,4 @@
-package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.persistence.entity;
+package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

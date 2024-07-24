@@ -1,8 +1,8 @@
-package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.persistence.mapper;
+package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.mapper;
 
+import com.beuben.pokemontcgcollectorbackend.collection.domain.Card;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.entity.CardEntity;
 import com.beuben.pokemontcgcollectorbackend.core.configuration.application.mapstruct.MapperConfiguration;
-import com.beuben.pokemontcgcollectorbackend.synchronization.domain.Card;
-import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.persistence.entity.CardEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(

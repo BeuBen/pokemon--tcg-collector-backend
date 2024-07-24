@@ -1,4 +1,4 @@
-package com.beuben.pokemontcgcollectorbackend.synchronization.domain;
+package com.beuben.pokemontcgcollectorbackend.collection.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,15 +1,15 @@
 package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.persistence.adapter;
 
-import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.out.provider.CardProvider;
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.out.provider.CardProvider;
+import com.beuben.pokemontcgcollectorbackend.collection.domain.Card;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.entity.CardEntity;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.mapper.CardMapper;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.repository.CardRepository;
+import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.out.provider.ExistingCardProvider;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.out.provider.RefreshProvider;
-import com.beuben.pokemontcgcollectorbackend.synchronization.domain.Card;
-import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.persistence.entity.CardEntity;
-import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.persistence.mapper.CardMapper;
-import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.persistence.repository.CardRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -23,18 +23,18 @@ import java.util.stream.Collectors;
 public class RefreshAdapter implements RefreshProvider {
   private static final Logger LOGGER = LoggerFactory.getLogger(RefreshAdapter.class);
 
-  @Qualifier("externalCardAdapter") private final CardProvider externalCardProvider;
-  @Qualifier("persistenceCardAdapter") private final CardProvider persistenceCardProvider;
+  private final ExistingCardProvider existingCardProvider;
+  private final CardProvider cardProvider;
   private final CardRepository cardRepository;
   private final CardMapper cardMapper;
 
   @Override
   public Mono<Void> refreshCards() {
     final var existingCards =
-        externalCardProvider.findAll()
+        existingCardProvider.findAll()
             .collect(Collectors.toSet());
     final var persistedCards =
-        persistenceCardProvider.findAll()
+        cardProvider.findAll()
             .collect(Collectors.toSet());
 
     return Mono.zip(existingCards, persistedCards)

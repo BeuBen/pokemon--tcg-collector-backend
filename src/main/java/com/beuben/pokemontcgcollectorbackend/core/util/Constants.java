@@ -7,8 +7,10 @@ public class Constants {
 
   //SWAGGER
   public static final String SWAGGER_GROUP_ACTUATOR = "Actuator";
+  public static final String SWAGGER_GROUP_COLLECTION = "Collection";
   public static final String SWAGGER_GROUP_SYNCHRO = "Synchronization";
   public static final String SWAGGER_PATH_ACTUATOR = "/**/actuator/**";
+  public static final String SWAGGER_PATH_COLLECTION = "/**/collection/**";
   public static final String SWAGGER_PATH_SYNCHRO = "/**/synchro/**";
 
   private Constants() {}
