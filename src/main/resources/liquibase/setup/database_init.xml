@@ -3,12 +3,74 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-<changeSet author="BeuBen" id="create-card-table">
-  <preConditions>
-    <not>
-      <tableExists tableName="card"/>
-    </not>
-  </preConditions>
+  <changeSet author="BeuBen" id="create-collector-table">
+    <preConditions>
+      <not>
+        <tableExists tableName="collector"/>
+      </not>
+    </preConditions>
+    <createTable tableName="collector">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints
+            nullable="false"
+            primaryKey="true"
+            primaryKeyName="collector_pkey"/>
+      </column>
+      <column name="username" type="varchar(50)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="password" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="BeuBen" id="create-set-table">
+    <preConditions>
+      <not>
+        <tableExists tableName="set"/>
+      </not>
+    </preConditions>
+    <createTable tableName="set">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints
+            nullable="false"
+            primaryKey="true"
+            primaryKeyName="set_pkey"/>
+      </column>
+      <column name="code" type="varchar(30)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="name" type="varchar(100)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="series" type="varchar(100)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="card_total" type="smallint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="release_date" type="timestamp">
+        <constraints nullable="false"/>
+      </column>
+      <column name="symbol_url" type="varchar(100)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="logo_url" type="varchar(100)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="BeuBen" id="create-card-table">
+    <preConditions>
+      <and>
+        <tableExists tableName="set"/>
+        <not>
+          <tableExists tableName="card"/>
+        </not>
+      </and>
+    </preConditions>
     <createTable tableName="card">
       <column name="id" type="bigserial" autoIncrement="true">
         <constraints
@@ -16,10 +78,25 @@
             primaryKey="true"
             primaryKeyName="card_pkey"/>
       </column>
+      <column name="set_id" type="bigint">
+        <constraints
+            nullable="false"
+            references="set(id)"
+            foreignKeyName="fk_card_set"/>
+      </column>
       <column name="code" type="varchar(30)">
         <constraints nullable="false"/>
       </column>
       <column name="name" type="varchar(100)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="rarity" type="varchar(30)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="number" type="smallint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="image_url" type="varchar(100)">
         <constraints nullable="false"/>
       </column>
     </createTable>
