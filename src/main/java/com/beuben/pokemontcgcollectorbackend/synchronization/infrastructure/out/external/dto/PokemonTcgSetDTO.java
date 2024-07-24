@@ -2,5 +2,9 @@ package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out
 
 public record PokemonTcgSetDTO(
     String id,
-    String name) {
+    String name,
+    String series,
+    Integer total,
+    String releaseDate,
+    PokemonTcgImageWrapperDTO images) {
 }

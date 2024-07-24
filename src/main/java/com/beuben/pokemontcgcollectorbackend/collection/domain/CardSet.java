@@ -3,10 +3,28 @@ package com.beuben.pokemontcgcollectorbackend.collection.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 public class CardSet {
   private Long id;
   private String code;
   private String name;
+  private String series;
+  private Integer cardTotal;
+  private LocalDateTime releaseDate;
+  private String symbolImage;
+  private String logoImage;
+
+  public boolean isInSet(final Set<CardSet> cardSets) {
+    return cardSets.stream()
+        .anyMatch(cardSet -> cardSet.isSameAs(this));
+  }
+
+  private boolean isSameAs(final CardSet cardSet) {
+    return cardSet.getCode().equals(this.code)
+        && cardSet.getName().equals(this.name);
+  }
 }

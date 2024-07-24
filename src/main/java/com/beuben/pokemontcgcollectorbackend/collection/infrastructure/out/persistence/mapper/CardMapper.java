@@ -11,5 +11,5 @@ import org.mapstruct.Mapper;
 public interface CardMapper {
   CardEntity toEntity(Card card);
 
-  Card toCard(CardEntity cardEntity);
+  Card toCard(CardEntity entity);
 }

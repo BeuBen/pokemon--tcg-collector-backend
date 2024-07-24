@@ -4,4 +4,6 @@ import reactor.core.publisher.Mono;
 
 public interface RefreshProvider {
   Mono<Void> refreshCards();
+
+  Mono<Void> refreshSets();
 }

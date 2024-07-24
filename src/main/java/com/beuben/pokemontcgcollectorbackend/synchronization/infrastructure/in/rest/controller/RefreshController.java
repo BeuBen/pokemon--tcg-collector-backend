@@ -1,6 +1,7 @@
 package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.controller;
 
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.in.RefreshCards;
+import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.in.RefreshSets;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping(value = "/synchro/refresh", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RefreshController {
   private final RefreshCards refreshCards;
+  private final RefreshSets refreshSets;
 
   @Operation(
       summary = "Synchronize card database",
@@ -31,6 +33,22 @@ public class RefreshController {
   @PostMapping("/cards")
   public Mono<ResponseEntity<Void>> refreshCards() {
     return refreshCards.execute()
+        .map(ResponseEntity::ok);
+  }
+
+  @Operation(
+      summary = "Synchronize set database",
+      description = "Synchronize set database with pokemontcg.io API data",
+      tags = {"Refresh"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "Set table synchronized")
+      })
+  @PostMapping("/sets")
+  public Mono<ResponseEntity<Void>> refreshSets() {
+    return refreshSets.execute()
         .map(ResponseEntity::ok);
   }
 }
