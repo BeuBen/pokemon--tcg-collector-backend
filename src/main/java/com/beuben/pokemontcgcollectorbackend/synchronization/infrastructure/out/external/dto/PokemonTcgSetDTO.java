@@ -6,5 +6,5 @@ public record PokemonTcgSetDTO(
     String series,
     Integer total,
     String releaseDate,
-    PokemonTcgImageWrapperDTO images) {
+    PokemonTcgImageDTO images) {
 }

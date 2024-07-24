@@ -12,6 +12,10 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 public class CardEntity {
   @Id private Long id;
+  private Long setId;
   private String code;
   private String name;
+  private String rarity;
+  private String number;
+  private String imageUrl;
 }

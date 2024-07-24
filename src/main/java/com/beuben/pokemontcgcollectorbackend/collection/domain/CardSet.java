@@ -2,11 +2,13 @@ package com.beuben.pokemontcgcollectorbackend.collection.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.With;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
+@With
 @AllArgsConstructor
 public class CardSet {
   private Long id;

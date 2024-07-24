@@ -90,10 +90,8 @@
       <column name="name" type="varchar(100)">
         <constraints nullable="false"/>
       </column>
-      <column name="rarity" type="varchar(30)">
-        <constraints nullable="false"/>
-      </column>
-      <column name="number" type="smallint">
+      <column name="rarity" type="varchar(30)"/>
+      <column name="number" type="varchar(10)">
         <constraints nullable="false"/>
       </column>
       <column name="image_url" type="varchar(100)">

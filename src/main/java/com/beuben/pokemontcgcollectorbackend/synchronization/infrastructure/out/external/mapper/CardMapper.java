@@ -8,10 +8,12 @@ import org.mapstruct.Mapping;
 
 @Mapper(
     config = MapperConfiguration.class,
-    implementationName = "CardApiMapper")
+    implementationName = "CardApiMapper",
+    uses = SetMapper.class)
 public interface CardMapper {
 
   @Mapping(source = "id", target = "code")
   @Mapping(target = "id", ignore = true)
+  @Mapping(source = "images.small", target = "image")
   Card toDomain(PokemonTcgCardDTO dto);
 }

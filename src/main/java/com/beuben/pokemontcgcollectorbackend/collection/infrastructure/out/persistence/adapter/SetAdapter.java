@@ -29,7 +29,7 @@ public class SetAdapter implements SetProvider {
   }
 
   @Override
-  public Mono<Void> saveAll(Set<CardSet> sets) {
+  public Mono<Void> saveAll(final Set<CardSet> sets) {
     LOGGER.info("Saving {} sets in database", sets.size());
 
     final var entities =
@@ -43,7 +43,7 @@ public class SetAdapter implements SetProvider {
   }
 
   @Override
-  public Mono<Void> deleteAll(Set<CardSet> sets) {
+  public Mono<Void> deleteAll(final Set<CardSet> sets) {
     LOGGER.info("Deleting {} sets from database", sets.size());
 
     final var entities =
