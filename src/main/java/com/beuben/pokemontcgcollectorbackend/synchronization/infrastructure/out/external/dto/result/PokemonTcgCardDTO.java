@@ -1,4 +1,4 @@
-package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.dto;
+package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.dto.result;
 
 public record PokemonTcgCardDTO(
     String id,

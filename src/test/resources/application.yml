@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: pokemon--tcg-collector-backend-test
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/testdatabase?ssl=true
+    username: tcg-collector
+    password: 1234
+  liquibase:
+    enabled: false
+
+springdoc:
+  version: '@project.version@'

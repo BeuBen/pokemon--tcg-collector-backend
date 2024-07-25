@@ -1,4 +1,4 @@
-package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.dto;
+package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.dto.result;
 
 import java.util.List;
 
