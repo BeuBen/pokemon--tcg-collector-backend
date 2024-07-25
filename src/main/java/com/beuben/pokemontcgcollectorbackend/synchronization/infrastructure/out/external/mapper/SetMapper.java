@@ -2,7 +2,7 @@ package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out
 
 import com.beuben.pokemontcgcollectorbackend.collection.domain.CardSet;
 import com.beuben.pokemontcgcollectorbackend.core.configuration.application.mapstruct.MapperConfiguration;
-import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.dto.PokemonTcgSetDTO;
+import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.dto.result.PokemonTcgSetDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
