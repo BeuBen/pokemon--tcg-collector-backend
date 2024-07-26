@@ -19,7 +19,7 @@
     <lombok.version>1.18.34</lombok.version>
     <r2dbc-postgresql.version>1.0.5.RELEASE</r2dbc-postgresql.version>
     <postgresql.version>42.7.3</postgresql.version>
-    <liquibase.version>4.28.0</liquibase.version>
+    <liquibase.version>4.29.0</liquibase.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <starter-webflux.version>2.6.0</starter-webflux.version>
   </properties>
