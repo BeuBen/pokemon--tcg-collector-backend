@@ -2,6 +2,7 @@ package com.beuben.pokemontcgcollectorbackend.collection.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.With;
 
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Data
 @With
 @AllArgsConstructor
+@NoArgsConstructor
 public class Card {
   private Long id;
   private String code;

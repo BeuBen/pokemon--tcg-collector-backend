@@ -1,15 +1,16 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("card")
 @Getter
 @Setter
+@With
 @AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 public class CardEntity {
   @Id private Long id;
   private Long setId;
