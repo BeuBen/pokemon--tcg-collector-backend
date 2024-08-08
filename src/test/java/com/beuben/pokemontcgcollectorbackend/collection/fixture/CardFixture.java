@@ -3,10 +3,9 @@ package com.beuben.pokemontcgcollectorbackend.collection.fixture;
 import com.beuben.pokemontcgcollectorbackend.collection.domain.Card;
 import com.beuben.pokemontcgcollectorbackend.collection.domain.CardSet;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.entity.CardEntity;
-import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.dto.result.PokemonTcgCardDTO;
-import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.dto.result.PokemonTcgImageDTO;
 
-import static com.beuben.pokemontcgcollectorbackend.collection.fixture.CardSetFixture.*;
+import static com.beuben.pokemontcgcollectorbackend.collection.fixture.CardSetFixture.aCompleteSetEntity;
+import static com.beuben.pokemontcgcollectorbackend.collection.fixture.CardSetFixture.aValidCardSet;
 
 public class CardFixture {
 
@@ -38,17 +37,5 @@ public class CardFixture {
   public static Card aSemiCompleteCard() {
     return aValidCard()
         .withSet(new CardSet().withId(27L));
-  }
-
-  public static PokemonTcgCardDTO aValidPokemonTcgCardDTO() {
-    return new PokemonTcgCardDTO(
-        "base1-1",
-        "Alakazam",
-        aValidPokemonTcgSetDTO(),
-        "1",
-        "Rare Holo",
-        PokemonTcgImageDTO.builder()
-            .small("https://images.pokemontcg.io/base1/1.png")
-            .build());
   }
 }

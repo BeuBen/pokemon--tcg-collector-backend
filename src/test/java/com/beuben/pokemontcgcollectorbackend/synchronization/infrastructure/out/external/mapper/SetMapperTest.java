@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static com.beuben.pokemontcgcollectorbackend.collection.fixture.CardSetFixture.aValidCardSet;
-import static com.beuben.pokemontcgcollectorbackend.collection.fixture.CardSetFixture.aValidPokemonTcgSetDTO;
+import static com.beuben.pokemontcgcollectorbackend.synchronization.fixture.CardSetFixture.aValidPokemonTcgSetDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
