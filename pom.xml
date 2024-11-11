@@ -21,7 +21,7 @@
     <r2dbc-postgresql.version>1.0.7.RELEASE</r2dbc-postgresql.version>
     <postgresql.version>42.7.4</postgresql.version>
     <liquibase.version>4.30.0</liquibase.version>
-    <mapstruct.version>1.6.2</mapstruct.version>
+    <mapstruct.version>1.6.3</mapstruct.version>
     <starter-webflux.version>2.6.0</starter-webflux.version>
   </properties>
   <dependencies>
