@@ -22,7 +22,7 @@
     <postgresql.version>42.7.4</postgresql.version>
     <liquibase.version>4.30.0</liquibase.version>
     <mapstruct.version>1.6.3</mapstruct.version>
-    <starter-webflux.version>2.7.0</starter-webflux.version>
+    <starter-webflux.version>2.8.3</starter-webflux.version>
   </properties>
   <dependencies>
     <!-- SPRING BOOT -->
