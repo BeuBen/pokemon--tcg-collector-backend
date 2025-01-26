@@ -18,9 +18,11 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+import static com.beuben.pokemontcgcollectorbackend.catalog.infrastructure.in.rest.Endpoints.SETS;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/catalog/sets", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class SetController {
   private final FetchAllSets fetchAllSets;
 
@@ -36,8 +38,8 @@ public class SetController {
               content = {@Content(array = @ArraySchema(
                   schema = @Schema(implementation = CardSet.class)))})
       })
-  @GetMapping
-  public Mono<ResponseEntity<List<CardSet>>> findAllCards() {
+  @GetMapping(SETS)
+  public Mono<ResponseEntity<List<CardSet>>> findAllSets() {
     return fetchAllSets.execute()
         .collectList()
         .map(ResponseEntity::ok);

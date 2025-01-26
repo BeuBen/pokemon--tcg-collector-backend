@@ -20,9 +20,12 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+import static com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.Endpoints.CARDS;
+import static com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.Endpoints.SETS;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/synchro/data", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class DataController {
   private final FetchAllExistingCards fetchAllExistingCards;
   private final FetchAllExistingSets fetchAllExistingSets;
@@ -30,7 +33,7 @@ public class DataController {
   @Operation(
       summary = "Fetch all existing cards",
       description = "Fetch all existing cards from pokemontcg.io API",
-      tags = {"Card"})
+      tags = {"Data"})
   @ApiResponses(
       value = {
           @ApiResponse(
@@ -39,7 +42,7 @@ public class DataController {
               content = {@Content(array = @ArraySchema(
                   schema = @Schema(implementation = Card.class)))})
       })
-  @GetMapping("/cards")
+  @GetMapping(CARDS)
   public Mono<ResponseEntity<List<Card>>> findAllExistingCards() {
     return fetchAllExistingCards.execute()
         .collectList()
@@ -49,7 +52,7 @@ public class DataController {
   @Operation(
       summary = "Fetch all existing sets",
       description = "Fetch all existing sets from pokemontcg.io API",
-      tags = {"Set"})
+      tags = {"Data"})
   @ApiResponses(
       value = {
           @ApiResponse(
@@ -58,7 +61,7 @@ public class DataController {
               content = {@Content(array = @ArraySchema(
                   schema = @Schema(implementation = CardSet.class)))})
       })
-  @GetMapping("/sets")
+  @GetMapping(SETS)
   public Mono<ResponseEntity<List<CardSet>>> findAllExistingSets() {
     return fetchAllExistingSets.execute()
         .collectList()

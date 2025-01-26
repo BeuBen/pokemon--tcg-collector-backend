@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
+import static com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.Endpoints.CARDS;
+import static com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.Endpoints.SETS;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/synchro/refresh", produces = MediaType.APPLICATION_JSON_VALUE)
-public class RefreshController {
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+public class SynchronizationController {
   private final RefreshCards refreshCards;
   private final RefreshSets refreshSets;
 
@@ -30,10 +33,10 @@ public class RefreshController {
               responseCode = "200",
               description = "Card table synchronized")
       })
-  @PostMapping("/cards")
+  @PostMapping(CARDS)
   public Mono<ResponseEntity<Void>> refreshCards() {
     return refreshCards.execute()
-        .map(ResponseEntity::ok);
+        .then(Mono.just(ResponseEntity.ok().build()));
   }
 
   @Operation(
@@ -46,9 +49,9 @@ public class RefreshController {
               responseCode = "200",
               description = "Set table synchronized")
       })
-  @PostMapping("/sets")
+  @PostMapping(SETS)
   public Mono<ResponseEntity<Void>> refreshSets() {
     return refreshSets.execute()
-        .map(ResponseEntity::ok);
+        .then(Mono.just(ResponseEntity.ok().build()));
   }
 }

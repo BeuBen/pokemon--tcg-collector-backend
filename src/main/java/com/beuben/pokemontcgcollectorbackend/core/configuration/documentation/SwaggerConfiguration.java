@@ -29,18 +29,26 @@ public class SwaggerConfiguration {
   }
 
   @Bean
-  public GroupedOpenApi synchronization() {
-    return GroupedOpenApi.builder()
-        .group(SWAGGER_GROUP_SYNCHRO)
-        .pathsToMatch(SWAGGER_PATH_SYNCHRO)
-        .build();
-  }
-
-  @Bean
   public GroupedOpenApi catalog() {
     return GroupedOpenApi.builder()
         .group(SWAGGER_GROUP_CATALOG)
         .pathsToMatch(SWAGGER_PATH_CATALOG)
+        .build();
+  }
+
+  @Bean
+  public GroupedOpenApi collection() {
+    return GroupedOpenApi.builder()
+        .group(SWAGGER_GROUP_COLLECTION)
+        .pathsToMatch(SWAGGER_PATH_COLLECTION)
+        .build();
+  }
+
+  @Bean
+  public GroupedOpenApi synchronization() {
+    return GroupedOpenApi.builder()
+        .group(SWAGGER_GROUP_SYNCHRO)
+        .pathsToMatch(SWAGGER_PATH_SYNCHRO)
         .build();
   }
 }
