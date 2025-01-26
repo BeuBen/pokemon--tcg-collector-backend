@@ -1,0 +1,36 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <changeSet author="BeuBen" id="create-condition-table">
+    <preConditions>
+      <not>
+        <tableExists tableName="condition"/>
+      </not>
+    </preConditions>
+    <createTable tableName="condition">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints
+            nullable="false"
+            primaryKey="true"
+            primaryKeyName="condition_pkey"/>
+      </column>
+      <column name="label" type="varchar(20)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="BeuBen" id="populate-condition-table">
+    <preConditions>
+      <tableExists tableName="condition"/>
+    </preConditions>
+    <loadData
+        file="/liquibase/setup/data/conditions.csv"
+        tableName="condition"
+        encoding="UTF-8">
+      <column name="label"/>
+    </loadData>
+  </changeSet>
+</databaseChangeLog>

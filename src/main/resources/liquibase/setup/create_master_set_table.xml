@@ -1,0 +1,34 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <changeSet author="BeuBen" id="create-master_set-table">
+    <preConditions>
+      <and>
+        <not>
+          <tableExists tableName="master_set"/>
+        </not>
+        <tableExists tableName="item"/>
+        <tableExists tableName="set"/>
+      </and>
+    </preConditions>
+    <createTable tableName="master_set">
+      <column name="item_id" type="bigint">
+        <constraints
+            primaryKey="true"
+            references="item(id)"
+            foreignKeyName="fk_master_set_item"/>
+      </column>
+      <column name="set_id" type="bigint">
+        <constraints
+            nullable="false"
+            references="set(id)"
+            foreignKeyName="fk_master_set_set"/>
+      </column>
+      <column name="completion_rate" type="decimal(4,3)" defaultValue="0.000">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+</databaseChangeLog>

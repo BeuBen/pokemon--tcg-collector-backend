@@ -1,0 +1,44 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <changeSet author="BeuBen" id="create-loose_card-table">
+    <preConditions>
+      <and>
+        <not>
+          <tableExists tableName="loose_card"/>
+        </not>
+        <tableExists tableName="item"/>
+        <tableExists tableName="card"/>
+        <tableExists tableName="language"/>
+      </and>
+    </preConditions>
+    <createTable tableName="loose_card">
+      <column name="item_id" type="bigint">
+        <constraints
+            primaryKey="true"
+            references="item(id)"
+            foreignKeyName="fk_loose_card_item"/>
+      </column>
+      <column name="card_id" type="bigint">
+        <constraints
+            nullable="false"
+            references="card(id)"
+            foreignKeyName="fk_loose_card_card"/>
+      </column>
+      <column name="language_id" type="bigint">
+        <constraints
+            nullable="false"
+            references="language(id)"
+            foreignKeyName="fk_loose_card_language"/>
+      </column>
+      <column name="is_first_edition" type="boolean" defaultValue="false">
+        <constraints nullable="false"/>
+      </column>
+      <column name="is_reverse_holo" type="boolean" defaultValue="false">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+</databaseChangeLog>

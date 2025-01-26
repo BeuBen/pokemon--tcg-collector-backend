@@ -1,0 +1,36 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <changeSet author="BeuBen" id="create-item_type-table">
+    <preConditions>
+      <not>
+        <tableExists tableName="item_type"/>
+      </not>
+    </preConditions>
+    <createTable tableName="item_type">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints
+            nullable="false"
+            primaryKey="true"
+            primaryKeyName="item_type_pkey"/>
+      </column>
+      <column name="label" type="varchar(50)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="BeuBen" id="populate-item_type-table">
+    <preConditions>
+      <tableExists tableName="item_type"/>
+    </preConditions>
+    <loadData
+        file="/liquibase/setup/data/item_types.csv"
+        tableName="item_type"
+        encoding="UTF-8">
+      <column name="label"/>
+    </loadData>
+  </changeSet>
+</databaseChangeLog>

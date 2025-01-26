@@ -1,0 +1,29 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <changeSet author="BeuBen" id="create-goodies-table">
+    <preConditions>
+      <not>
+        <tableExists tableName="goodies"/>
+      </not>
+      <tableExists tableName="item"/>
+      <tableExists tableName="goodies_type"/>
+    </preConditions>
+    <createTable tableName="goodies">
+      <column name="item_id" type="bigint">
+        <constraints
+            primaryKey="true"
+            references="item(id)"
+            foreignKeyName="fk_goodies_item"/>
+      </column>
+      <column name="goodies_type_id" type="bigint">
+        <constraints
+            nullable="false"
+            references="goodies_type(id)"
+            foreignKeyName="fk_goodies_goodies_type"/>
+      </column>
+    </createTable>
+  </changeSet>
+</databaseChangeLog>
