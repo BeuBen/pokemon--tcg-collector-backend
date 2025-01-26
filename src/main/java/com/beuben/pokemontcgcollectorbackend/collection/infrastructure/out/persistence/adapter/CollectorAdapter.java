@@ -16,6 +16,13 @@ public class CollectorAdapter implements CollectorProvider {
   private final CollectorMapper mapper;
 
   @Override
+  public Mono<Collector> findById(final Long id) {
+    return repository.findById(id)
+        .map(mapper::toDomain)
+        .switchIfEmpty(Mono.error(new CollectorNotFoundException()));
+  }
+
+  @Override
   public Mono<Collector> findByUsername(final String username) {
     return repository.findByUsername(username)
         .map(mapper::toDomain)
