@@ -23,5 +23,10 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+
+    <addUniqueConstraint
+        columnNames="username"
+        tableName="collector"
+        constraintName="unique_username_constraint"/>
   </changeSet>
 </databaseChangeLog>
