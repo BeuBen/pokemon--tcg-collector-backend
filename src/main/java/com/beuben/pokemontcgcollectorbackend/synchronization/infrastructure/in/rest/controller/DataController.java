@@ -1,7 +1,7 @@
 package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.controller;
 
-import com.beuben.pokemontcgcollectorbackend.collection.domain.Card;
-import com.beuben.pokemontcgcollectorbackend.collection.domain.CardSet;
+import com.beuben.pokemontcgcollectorbackend.catalog.domain.Card;
+import com.beuben.pokemontcgcollectorbackend.catalog.domain.CardSet;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.in.FetchAllExistingCards;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.in.FetchAllExistingSets;
 import io.swagger.v3.oas.annotations.Operation;

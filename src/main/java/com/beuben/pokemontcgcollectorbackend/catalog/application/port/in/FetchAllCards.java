@@ -1,8 +1,8 @@
-package com.beuben.pokemontcgcollectorbackend.synchronization.application.port.in;
+package com.beuben.pokemontcgcollectorbackend.catalog.application.port.in;
 
 import com.beuben.pokemontcgcollectorbackend.catalog.domain.Card;
 import reactor.core.publisher.Flux;
 
-public interface FetchAllExistingCards {
+public interface FetchAllCards {
   Flux<Card> execute();
 }

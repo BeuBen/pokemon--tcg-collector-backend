@@ -1,6 +1,6 @@
 package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.adapter;
 
-import com.beuben.pokemontcgcollectorbackend.collection.domain.CardSet;
+import com.beuben.pokemontcgcollectorbackend.catalog.domain.CardSet;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.out.provider.ExistingSetProvider;
 import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.api.pokemontcg.PokemonTcgApi;
 import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.dto.result.PokemonTcgSetWrapperDTO;

@@ -1,6 +1,6 @@
 package com.beuben.pokemontcgcollectorbackend.synchronization.application.usecase;
 
-import com.beuben.pokemontcgcollectorbackend.collection.domain.Card;
+import com.beuben.pokemontcgcollectorbackend.catalog.domain.Card;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.in.FetchAllExistingCards;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.out.provider.ExistingCardProvider;
 import lombok.RequiredArgsConstructor;

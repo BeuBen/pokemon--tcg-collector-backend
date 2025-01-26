@@ -37,10 +37,10 @@ public class SwaggerConfiguration {
   }
 
   @Bean
-  public GroupedOpenApi collection() {
+  public GroupedOpenApi catalog() {
     return GroupedOpenApi.builder()
-        .group(SWAGGER_GROUP_COLLECTION)
-        .pathsToMatch(SWAGGER_PATH_COLLECTION)
+        .group(SWAGGER_GROUP_CATALOG)
+        .pathsToMatch(SWAGGER_PATH_CATALOG)
         .build();
   }
 }

@@ -1,9 +1,9 @@
 package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.persistence.adapter;
 
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.out.provider.CardProvider;
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.out.provider.SetProvider;
-import com.beuben.pokemontcgcollectorbackend.collection.domain.Card;
-import com.beuben.pokemontcgcollectorbackend.collection.domain.CardSet;
+import com.beuben.pokemontcgcollectorbackend.catalog.application.port.out.provider.CardProvider;
+import com.beuben.pokemontcgcollectorbackend.catalog.application.port.out.provider.SetProvider;
+import com.beuben.pokemontcgcollectorbackend.catalog.domain.Card;
+import com.beuben.pokemontcgcollectorbackend.catalog.domain.CardSet;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.out.provider.ExistingCardProvider;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.out.provider.ExistingSetProvider;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.out.provider.RefreshProvider;
