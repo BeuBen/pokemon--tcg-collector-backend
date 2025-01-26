@@ -10,8 +10,6 @@
           <tableExists tableName="item"/>
         </not>
         <tableExists tableName="collector"/>
-        <tableExists tableName="item_type"/>
-        <tableExists tableName="condition"/>
       </and>
     </preConditions>
     <createTable tableName="item">
@@ -30,17 +28,11 @@
       <column name="label" type="varchar(100)">
         <constraints nullable="false"/>
       </column>
-      <column name="item_type_id" type="bigint">
-        <constraints
-            nullable="false"
-            references="item_type(id)"
-            foreignKeyName="fk_item_item_type"/>
+      <column name="item_type" type="varchar(20)">
+        <constraints nullable="false"/>
       </column>
-      <column name="condition_id" type="bigint">
-        <constraints
-            nullable="false"
-            references="condition(id)"
-            foreignKeyName="fk_item_condition"/>
+      <column name="condition" type="varchar(20)">
+        <constraints nullable="false"/>
       </column>
       <column name="estimation_euros" type="decimal(10,2)">
         <constraints nullable="false"/>

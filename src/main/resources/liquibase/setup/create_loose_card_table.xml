@@ -11,7 +11,6 @@
         </not>
         <tableExists tableName="item"/>
         <tableExists tableName="card"/>
-        <tableExists tableName="language"/>
       </and>
     </preConditions>
     <createTable tableName="loose_card">
@@ -27,11 +26,8 @@
             references="card(id)"
             foreignKeyName="fk_loose_card_card"/>
       </column>
-      <column name="language_id" type="bigint">
-        <constraints
-            nullable="false"
-            references="language(id)"
-            foreignKeyName="fk_loose_card_language"/>
+      <column name="language" type="varchar(20)">
+        <constraints nullable="false"/>
       </column>
       <column name="is_first_edition" type="boolean" defaultValue="false">
         <constraints nullable="false"/>

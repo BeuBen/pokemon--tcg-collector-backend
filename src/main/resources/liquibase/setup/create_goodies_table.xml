@@ -5,11 +5,12 @@
 
   <changeSet author="BeuBen" id="create-goodies-table">
     <preConditions>
-      <not>
-        <tableExists tableName="goodies"/>
-      </not>
-      <tableExists tableName="item"/>
-      <tableExists tableName="goodies_type"/>
+      <and>
+        <not>
+          <tableExists tableName="goodies"/>
+        </not>
+        <tableExists tableName="item"/>
+      </and>
     </preConditions>
     <createTable tableName="goodies">
       <column name="item_id" type="bigint">
@@ -18,11 +19,8 @@
             references="item(id)"
             foreignKeyName="fk_goodies_item"/>
       </column>
-      <column name="goodies_type_id" type="bigint">
-        <constraints
-            nullable="false"
-            references="goodies_type(id)"
-            foreignKeyName="fk_goodies_goodies_type"/>
+      <column name="goodies_type" type="varchar(20)">
+        <constraints nullable="false"/>
       </column>
     </createTable>
   </changeSet>
