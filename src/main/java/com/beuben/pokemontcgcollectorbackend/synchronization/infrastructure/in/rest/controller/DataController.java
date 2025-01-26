@@ -1,9 +1,11 @@
 package com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.controller;
 
-import com.beuben.pokemontcgcollectorbackend.catalog.domain.Card;
-import com.beuben.pokemontcgcollectorbackend.catalog.domain.CardSet;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.in.FetchAllExistingCards;
 import com.beuben.pokemontcgcollectorbackend.synchronization.application.port.in.FetchAllExistingSets;
+import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.dto.result.ExistingCardDTO;
+import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.dto.result.ExistingSetDTO;
+import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.mapper.ExistingCardMapper;
+import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.mapper.ExistingSetMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -29,6 +31,8 @@ import static com.beuben.pokemontcgcollectorbackend.synchronization.infrastructu
 public class DataController {
   private final FetchAllExistingCards fetchAllExistingCards;
   private final FetchAllExistingSets fetchAllExistingSets;
+  private final ExistingCardMapper cardMapper;
+  private final ExistingSetMapper setMapper;
 
   @Operation(
       summary = "Fetch all existing cards",
@@ -40,11 +44,12 @@ public class DataController {
               responseCode = "200",
               description = "List of cards fetched",
               content = {@Content(array = @ArraySchema(
-                  schema = @Schema(implementation = Card.class)))})
+                  schema = @Schema(implementation = ExistingCardDTO.class)))})
       })
   @GetMapping(CARDS)
-  public Mono<ResponseEntity<List<Card>>> findAllExistingCards() {
+  public Mono<ResponseEntity<List<ExistingCardDTO>>> findAllExistingCards() {
     return fetchAllExistingCards.execute()
+        .map(cardMapper::toDTO)
         .collectList()
         .map(ResponseEntity::ok);
   }
@@ -59,11 +64,12 @@ public class DataController {
               responseCode = "200",
               description = "List of sets fetched",
               content = {@Content(array = @ArraySchema(
-                  schema = @Schema(implementation = CardSet.class)))})
+                  schema = @Schema(implementation = ExistingSetDTO.class)))})
       })
   @GetMapping(SETS)
-  public Mono<ResponseEntity<List<CardSet>>> findAllExistingSets() {
+  public Mono<ResponseEntity<List<ExistingSetDTO>>> findAllExistingSets() {
     return fetchAllExistingSets.execute()
+        .map(setMapper::toDTO)
         .collectList()
         .map(ResponseEntity::ok);
   }

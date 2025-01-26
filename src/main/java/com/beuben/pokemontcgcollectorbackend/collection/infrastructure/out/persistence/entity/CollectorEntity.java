@@ -14,7 +14,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @NoArgsConstructor
 public class CollectorEntity {
   @Id
-  Long id;
-  String username;
-  String password;
+  private Long id;
+  private String username;
+  private String password;
 }

@@ -2,10 +2,11 @@ package com.beuben.pokemontcgcollectorbackend.catalog.fixture;
 
 import com.beuben.pokemontcgcollectorbackend.catalog.domain.Card;
 import com.beuben.pokemontcgcollectorbackend.catalog.domain.CardSet;
+import com.beuben.pokemontcgcollectorbackend.catalog.infrastructure.in.rest.dto.result.CardDTO;
 import com.beuben.pokemontcgcollectorbackend.catalog.infrastructure.out.persistence.entity.CardEntity;
+import com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.in.rest.dto.result.ExistingCardDTO;
 
-import static com.beuben.pokemontcgcollectorbackend.catalog.fixture.CardSetFixture.aCompleteSetEntity;
-import static com.beuben.pokemontcgcollectorbackend.catalog.fixture.CardSetFixture.aValidCardSet;
+import static com.beuben.pokemontcgcollectorbackend.catalog.fixture.CardSetFixture.*;
 
 public class CardFixture {
 
@@ -21,7 +22,7 @@ public class CardFixture {
 
   public static CardEntity aCompleteCardEntity() {
     return aValidCardEntity()
-        .withSetId(27L);
+        .withSetId(aCompleteSetEntity().getId());
   }
 
   public static Card aValidCard() {
@@ -36,6 +37,28 @@ public class CardFixture {
 
   public static Card aSemiCompleteCard() {
     return aValidCard()
-        .withSet(new CardSet().withId(27L));
+        .withSet(new CardSet().withId(aCompleteCardSet().getId()));
+  }
+
+  public static CardDTO aValidCardDto() {
+    return CardDTO.builder()
+        .code("base1-1")
+        .name("Alakazam")
+        .set(aValidSetDTO())
+        .rarity("Rare Holo")
+        .number("1")
+        .image("https://images.pokemontcg.io/base1/1.png")
+        .build();
+  }
+
+  public static ExistingCardDTO aValidExistingCardDto() {
+    return ExistingCardDTO.builder()
+        .code("base1-1")
+        .name("Alakazam")
+        .set(aValidExistingSetDTO())
+        .rarity("Rare Holo")
+        .number("1")
+        .image("https://images.pokemontcg.io/base1/1.png")
+        .build();
   }
 }

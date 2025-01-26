@@ -1,7 +1,8 @@
 package com.beuben.pokemontcgcollectorbackend.catalog.infrastructure.in.rest.controller;
 
 import com.beuben.pokemontcgcollectorbackend.catalog.application.port.in.FetchAllCards;
-import com.beuben.pokemontcgcollectorbackend.catalog.domain.Card;
+import com.beuben.pokemontcgcollectorbackend.catalog.infrastructure.in.rest.dto.result.CardDTO;
+import com.beuben.pokemontcgcollectorbackend.catalog.infrastructure.in.rest.mapper.CardMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -25,6 +26,7 @@ import static com.beuben.pokemontcgcollectorbackend.catalog.infrastructure.in.re
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class CardController {
   private final FetchAllCards fetchAllCards;
+  private final CardMapper mapper;
 
   @Operation(
       summary = "Fetch all cards",
@@ -36,11 +38,12 @@ public class CardController {
               responseCode = "200",
               description = "List of cards fetched",
               content = {@Content(array = @ArraySchema(
-                  schema = @Schema(implementation = Card.class)))})
+                  schema = @Schema(implementation = CardDTO.class)))})
       })
   @GetMapping(CARDS)
-  public Mono<ResponseEntity<List<Card>>> findAllCards() {
+  public Mono<ResponseEntity<List<CardDTO>>> findAllCards() {
     return fetchAllCards.execute()
+        .map(mapper::toDTO)
         .collectList()
         .map(ResponseEntity::ok);
   }
