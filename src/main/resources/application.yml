@@ -4,12 +4,12 @@ spring:
     version: '@project.version@'
   liquibase:
     change-log: liquibase/master.xml
-    url: jdbc:postgresql://pokemon--tcg-collector-5562.6zw.aws-eu-west-1.cockroachlabs.cloud:26257/pokemon_tcg_collector?ssl=true
-    user: tcg-collector
+    url: jdbc:postgresql://${POSTGRES_HOST}
+    user: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
   r2dbc:
-    url: r2dbc:postgresql://pokemon--tcg-collector-5562.6zw.aws-eu-west-1.cockroachlabs.cloud:26257/pokemon_tcg_collector?ssl=true
-    username: tcg-collector
+    url: r2dbc:postgresql://${POSTGRES_HOST}
+    username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
 
 management:
