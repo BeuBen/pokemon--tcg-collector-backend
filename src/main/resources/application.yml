@@ -27,5 +27,5 @@ springdoc:
 
 api:
   pokemontcg:
-    key: ${POKEMON_TCG_API_KEY}
     url: https://api.pokemontcg.io/v2
+    key: ${POKEMON_TCG_API_KEY}
