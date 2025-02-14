@@ -1,11 +1,15 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.controller;
 
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.AddLooseCardToCollection;
 import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchAllCollectorItems;
 import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchCollector;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddLooseCardCommand;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.CollectorDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.ItemDTO;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.LooseCardDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.CollectorMapper;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.ItemMapper;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.LooseCardMapper;
 import com.beuben.pokemontcgcollectorbackend.core.exception.dto.ErrorDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -13,6 +17,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +26,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-import static com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.Endpoints.COLLECTORS;
-import static com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.Endpoints.COLLECTOR_ITEMS;
+import static com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.Endpoints.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,8 +34,10 @@ import static com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in
 public class CollectionController {
   private final FetchCollector fetchCollector;
   private final FetchAllCollectorItems fetchAllCollectorItems;
+  private final AddLooseCardToCollection addLooseCardToCollection;
   private final CollectorMapper collectorMapper;
   private final ItemMapper itemMapper;
+  private final LooseCardMapper looseCardMapper;
 
   @Operation(
       summary = "Get collector by username",
@@ -76,6 +82,30 @@ public class CollectionController {
     return fetchAllCollectorItems.execute(collectorId)
         .map(itemMapper::toDTO)
         .collectList()
+        .map(ResponseEntity::ok);
+  }
+
+  @Operation(
+      summary = "Add loose card to collection",
+      description = "Add loose card to collection",
+      tags = {"Collection"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "Loose card added successfully",
+              content = @Content(schema = @Schema(implementation = LooseCardDTO.class)))
+      })
+  @PostMapping(COLLECTOR_LOOSE_CARDS)
+  public Mono<ResponseEntity<LooseCardDTO>> addLooseCardToCollection(
+      @PathVariable final Long collectorId,
+      @RequestBody @Valid final AddLooseCardCommand command) {
+
+    //TODO return http created instead of ok
+
+    final var looseCard = looseCardMapper.toDomain(command, collectorId);
+    return addLooseCardToCollection.execute(looseCard)
+        .map(looseCardMapper::toDTO)
         .map(ResponseEntity::ok);
   }
 }
