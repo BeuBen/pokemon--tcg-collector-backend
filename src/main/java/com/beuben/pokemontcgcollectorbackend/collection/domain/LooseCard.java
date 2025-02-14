@@ -17,8 +17,8 @@ public class LooseCard {
   private String label;
   private Long cardId;
   private Language language;
-  private boolean isFirstEdition;
-  private boolean isReverseHolo;
+  private boolean firstEdition;
+  private boolean reverseHolo;
   private Condition condition;
   private Estimation estimation;
   private String picturesUrl;

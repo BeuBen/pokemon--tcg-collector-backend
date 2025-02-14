@@ -15,4 +15,9 @@ public interface LooseCardMapper {
   @Mapping(target = "estimation.date", source = "estimationDate")
   @Mapping(target = "estimation.sourceUrl", source = "estimationSourceUrl")
   LooseCard toDomain(LooseCardEntity entity);
+
+  @Mapping(target = "estimationEuros", source = "estimation.priceInEuros")
+  @Mapping(target = "estimationDate", source = "estimation.date")
+  @Mapping(target = "estimationSourceUrl", source = "estimation.sourceUrl")
+  LooseCardEntity toEntity(LooseCard domain);
 }
