@@ -6,7 +6,6 @@
   <include file="/liquibase/setup/create_collector_table.xml"/>
   <include file="/liquibase/setup/create_set_table.xml"/>
   <include file="/liquibase/setup/create_card_table.xml"/>
-  <include file="/liquibase/setup/create_item_table.xml"/>
   <include file="/liquibase/setup/create_loose_card_table.xml"/>
   <include file="/liquibase/setup/create_graded_card_table.xml"/>
   <include file="/liquibase/setup/create_master_set_table.xml"/>

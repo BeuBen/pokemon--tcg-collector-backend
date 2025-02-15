@@ -8,20 +8,49 @@
       <not>
         <tableExists tableName="sealed"/>
       </not>
-      <tableExists tableName="item"/>
     </preConditions>
     <createTable tableName="sealed">
-      <column name="item_id" type="bigint">
+      <column name="id" type="bigserial" autoIncrement="true">
         <constraints
+            nullable="false"
             primaryKey="true"
-            references="item(id)"
-            foreignKeyName="fk_sealed_item"/>
+            primaryKeyName="sealed_pkey"/>
+      </column>
+      <column name="collector_id" type="bigint">
+        <constraints
+            nullable="false"
+            references="collector(id)"
+            foreignKeyName="fk_item_collector"/>
+      </column>
+      <column name="label" type="varchar(100)">
+        <constraints nullable="false"/>
       </column>
       <column name="is_protected" type="boolean" defaultValue="false">
         <constraints nullable="false"/>
       </column>
       <column name="protection_cost" type="decimal(10,2)">
         <constraints nullable="true"/>
+      </column>
+      <column name="condition" type="varchar(20)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="estimation_euros" type="decimal(10,2)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="estimation_date" type="timestamp">
+        <constraints nullable="false"/>
+      </column>
+      <column name="estimation_source_url" type="varchar(200)">
+        <constraints nullable="true"/>
+      </column>
+      <column name="pictures_url" type="varchar(200)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="comment" type="varchar(200)">
+        <constraints nullable="true"/>
+      </column>
+      <column name="creation_date" type="timestamp">
+        <constraints nullable="false"/>
       </column>
     </createTable>
   </changeSet>

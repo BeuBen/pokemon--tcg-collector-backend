@@ -11,11 +11,14 @@ import java.time.LocalDateTime;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
+public class Goodies {
   private Long id;
+  private Long collectorId;
   private String label;
-  private ItemType itemType;
+  private GoodiesType goodiesType;
+  private Condition condition;
   private Estimation estimation;
   private String picturesUrl;
+  private String comment;
   private LocalDateTime creationDate;
 }

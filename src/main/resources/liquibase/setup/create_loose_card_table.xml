@@ -9,16 +9,24 @@
         <not>
           <tableExists tableName="loose_card"/>
         </not>
-        <tableExists tableName="item"/>
         <tableExists tableName="card"/>
       </and>
     </preConditions>
     <createTable tableName="loose_card">
-      <column name="item_id" type="bigint">
+      <column name="id" type="bigserial" autoIncrement="true">
         <constraints
+            nullable="false"
             primaryKey="true"
-            references="item(id)"
-            foreignKeyName="fk_loose_card_item"/>
+            primaryKeyName="loose_card_pkey"/>
+      </column>
+      <column name="collector_id" type="bigint">
+        <constraints
+            nullable="false"
+            references="collector(id)"
+            foreignKeyName="fk_item_collector"/>
+      </column>
+      <column name="label" type="varchar(100)">
+        <constraints nullable="false"/>
       </column>
       <column name="card_id" type="bigint">
         <constraints
@@ -33,6 +41,27 @@
         <constraints nullable="false"/>
       </column>
       <column name="is_reverse_holo" type="boolean" defaultValue="false">
+        <constraints nullable="false"/>
+      </column>
+      <column name="condition" type="varchar(20)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="estimation_euros" type="decimal(10,2)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="estimation_date" type="timestamp">
+        <constraints nullable="false"/>
+      </column>
+      <column name="estimation_source_url" type="varchar(200)">
+        <constraints nullable="true"/>
+      </column>
+      <column name="pictures_url" type="varchar(200)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="comment" type="varchar(200)">
+        <constraints nullable="true"/>
+      </column>
+      <column name="creation_date" type="timestamp">
         <constraints nullable="false"/>
       </column>
     </createTable>

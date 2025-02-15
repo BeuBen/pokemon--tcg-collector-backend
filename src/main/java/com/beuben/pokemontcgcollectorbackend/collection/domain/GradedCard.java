@@ -11,11 +11,17 @@ import java.time.LocalDateTime;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
+public class GradedCard {
   private Long id;
+  private Long collectorId;
   private String label;
-  private ItemType itemType;
+  private Long cardId;
+  private Language language;
+  private boolean isFirstEdition;
+  private boolean isReverseHolo;
+  private Grading grading;
   private Estimation estimation;
   private String picturesUrl;
+  private String comment;
   private LocalDateTime creationDate;
 }

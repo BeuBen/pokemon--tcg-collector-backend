@@ -58,7 +58,7 @@ public class CollectionController {
   @Operation(
       summary = "Fetch all collector's items",
       description = "Fetch all collector's items from its username",
-      tags = {"Collector"})
+      tags = {"Collection"})
   @ApiResponses(
       value = {
           @ApiResponse(
