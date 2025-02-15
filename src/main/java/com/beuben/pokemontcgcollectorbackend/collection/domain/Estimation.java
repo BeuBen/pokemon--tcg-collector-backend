@@ -5,17 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.With;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
-  private Long id;
-  private String label;
-  private ItemType itemType;
-  private Estimation estimation;
-  private String picturesUrl;
-  private LocalDateTime creationDate;
+public class Estimation {
+  private BigDecimal priceInEuros;
+  private String sourceUrl;
+  private LocalDateTime date;
 }

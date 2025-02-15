@@ -9,16 +9,24 @@
         <not>
           <tableExists tableName="master_set"/>
         </not>
-        <tableExists tableName="item"/>
         <tableExists tableName="set"/>
       </and>
     </preConditions>
     <createTable tableName="master_set">
-      <column name="item_id" type="bigint">
+      <column name="id" type="bigserial" autoIncrement="true">
         <constraints
+            nullable="false"
             primaryKey="true"
-            references="item(id)"
-            foreignKeyName="fk_master_set_item"/>
+            primaryKeyName="master_set_pkey"/>
+      </column>
+      <column name="collector_id" type="bigint">
+        <constraints
+            nullable="false"
+            references="collector(id)"
+            foreignKeyName="fk_item_collector"/>
+      </column>
+      <column name="label" type="varchar(100)">
+        <constraints nullable="false"/>
       </column>
       <column name="set_id" type="bigint">
         <constraints
@@ -27,6 +35,27 @@
             foreignKeyName="fk_master_set_set"/>
       </column>
       <column name="completion_rate" type="decimal(4,3)" defaultValue="0.000">
+        <constraints nullable="false"/>
+      </column>
+      <column name="condition" type="varchar(20)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="estimation_euros" type="decimal(10,2)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="estimation_date" type="timestamp">
+        <constraints nullable="false"/>
+      </column>
+      <column name="estimation_source_url" type="varchar(200)">
+        <constraints nullable="true"/>
+      </column>
+      <column name="pictures_url" type="varchar(200)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="comment" type="varchar(200)">
+        <constraints nullable="true"/>
+      </column>
+      <column name="creation_date" type="timestamp">
         <constraints nullable="false"/>
       </column>
     </createTable>
