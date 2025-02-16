@@ -3,6 +3,7 @@ package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.
 import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.AddLooseCardToCollection;
 import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchAllCollectorItems;
 import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchCollector;
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchLooseCard;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddLooseCardCommand;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.CollectorDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.ItemDTO;
@@ -22,8 +23,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
 import java.util.List;
 
 import static com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.Endpoints.*;
@@ -34,6 +37,7 @@ import static com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in
 public class CollectionController {
   private final FetchCollector fetchCollector;
   private final FetchAllCollectorItems fetchAllCollectorItems;
+  private final FetchLooseCard fetchLooseCard;
   private final AddLooseCardToCollection addLooseCardToCollection;
   private final CollectorMapper collectorMapper;
   private final ItemMapper itemMapper;
@@ -86,26 +90,55 @@ public class CollectionController {
   }
 
   @Operation(
+      summary = "Fetch loose card",
+      description = "Fetch loose card by id",
+      tags = {"Collection"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "Loose card found successfully",
+              content = {@Content(array = @ArraySchema(
+                  schema = @Schema(implementation = LooseCardDTO.class)))}),
+          @ApiResponse(
+              responseCode = "404",
+              description = "Loose card not found",
+              content = @Content(schema = @Schema(implementation = ErrorDTO.class)))
+      })
+  @GetMapping(LOOSE_CARD)
+  public Mono<ResponseEntity<LooseCardDTO>> findLooseCardById(@PathVariable final Long id) {
+    return fetchLooseCard.execute(id)
+        .map(looseCardMapper::toDTO)
+        .map(ResponseEntity::ok);
+  }
+
+  @Operation(
       summary = "Add loose card to collection",
       description = "Add loose card to collection",
       tags = {"Collection"})
   @ApiResponses(
       value = {
           @ApiResponse(
-              responseCode = "200",
+              responseCode = "201",
               description = "Loose card added successfully",
               content = @Content(schema = @Schema(implementation = LooseCardDTO.class)))
       })
   @PostMapping(COLLECTOR_LOOSE_CARDS)
-  public Mono<ResponseEntity<LooseCardDTO>> addLooseCardToCollection(
+  public Mono<ResponseEntity<LooseCardDTO>> addLooseCard(
       @PathVariable final Long collectorId,
       @RequestBody @Valid final AddLooseCardCommand command) {
-
-    //TODO return http created instead of ok
-
     final var looseCard = looseCardMapper.toDomain(command, collectorId);
     return addLooseCardToCollection.execute(looseCard)
         .map(looseCardMapper::toDTO)
-        .map(ResponseEntity::ok);
+        .map(dto -> {
+          final URI location =
+              UriComponentsBuilder
+                  .fromUriString(LOOSE_CARD)
+                  .build(dto.id());
+
+          return ResponseEntity
+              .created(location)
+              .body(dto);
+        });
   }
 }
