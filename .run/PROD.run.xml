@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="LOCAL" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="PROD" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="pokemon--tcg-collector-backend" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.beuben.pokemontcgcollectorbackend.Application" />
     <extension name="net.ashald.envfile">
@@ -10,7 +10,7 @@
       <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
       <ENTRIES>
         <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-        <ENTRY IS_ENABLED="true" PARSER="env" IS_EXECUTABLE="false" PATH=".env/local.env" />
+        <ENTRY IS_ENABLED="true" PARSER="env" IS_EXECUTABLE="false" PATH=".env/prod.env" />
       </ENTRIES>
     </extension>
     <method v="2">
