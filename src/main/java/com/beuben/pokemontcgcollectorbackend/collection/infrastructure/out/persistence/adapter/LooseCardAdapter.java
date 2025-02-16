@@ -2,6 +2,7 @@ package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.pers
 
 import com.beuben.pokemontcgcollectorbackend.collection.application.port.out.LooseCardProvider;
 import com.beuben.pokemontcgcollectorbackend.collection.domain.LooseCard;
+import com.beuben.pokemontcgcollectorbackend.collection.domain.exception.LooseCardNotFoundException;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.mapper.LooseCardMapper;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.repository.LooseCardRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,13 @@ public class LooseCardAdapter implements LooseCardProvider {
   public Flux<LooseCard> findAllByCollectorId(Long collectorId) {
     return repository.findAllByCollectorId(collectorId)
         .map(mapper::toDomain);
+  }
+
+  @Override
+  public Mono<LooseCard> findById(Long id) {
+    return repository.findById(id)
+        .map(mapper::toDomain)
+        .switchIfEmpty(Mono.error(new LooseCardNotFoundException()));
   }
 
   @Override

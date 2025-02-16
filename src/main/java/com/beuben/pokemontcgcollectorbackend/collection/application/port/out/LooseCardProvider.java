@@ -7,5 +7,7 @@ import reactor.core.publisher.Mono;
 public interface LooseCardProvider {
   Flux<LooseCard> findAllByCollectorId(Long collectorId);
 
+  Mono<LooseCard> findById(Long id);
+
   Mono<LooseCard> add(LooseCard looseCard);
 }
