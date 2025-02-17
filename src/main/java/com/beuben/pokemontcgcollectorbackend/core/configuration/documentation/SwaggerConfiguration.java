@@ -45,6 +45,14 @@ public class SwaggerConfiguration {
   }
 
   @Bean
+  public GroupedOpenApi looseCard() {
+    return GroupedOpenApi.builder()
+        .group(SWAGGER_GROUP_LOOSE_CARD)
+        .pathsToMatch(SWAGGER_PATH_LOOSE_CARD)
+        .build();
+  }
+
+  @Bean
   public GroupedOpenApi synchronization() {
     return GroupedOpenApi.builder()
         .group(SWAGGER_GROUP_SYNCHRO)
