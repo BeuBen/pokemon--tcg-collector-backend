@@ -16,9 +16,9 @@ public class MasterSetFixture {
         .withSetId(1L)
         .withCompletionRate(BigDecimal.ONE)
         .withCondition(Condition.MINT)
-        .withEstimationEuros(BigDecimal.TEN)
-        .withEstimationDate(LocalDateTime.MIN)
-        .withEstimationSourceUrl("estimation_url.com")
+        .withEstimationEuros(ItemFixture.aValidEstimation().getPriceInEuros())
+        .withEstimationDate(ItemFixture.aValidEstimation().getDate())
+        .withEstimationSourceUrl(ItemFixture.aValidEstimation().getSourceUrl())
         .withPicturesUrl("pictures_url.com")
         .withComment("a comment")
         .withCreationDate(LocalDateTime.MIN);

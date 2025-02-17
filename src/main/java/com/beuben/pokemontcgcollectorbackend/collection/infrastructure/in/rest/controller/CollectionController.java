@@ -1,14 +1,14 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.controller;
 
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.AddLooseCardToCollection;
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchAllCollectorItems;
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchAllCollectorLooseCards;
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchCollector;
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.*;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddGradedCardCommand;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddLooseCardCommand;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.CollectorDTO;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.GradedCardDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.ItemDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.LooseCardDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.CollectorMapper;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.GradedCardMapper;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.ItemMapper;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.LooseCardMapper;
 import com.beuben.pokemontcgcollectorbackend.core.exception.dto.ErrorDTO;
@@ -36,10 +36,13 @@ import static com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in
 @RequestMapping(value = COLLECTION, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CollectionController {
   private final FetchCollector fetchCollector;
+  private final FetchAllCollectorGradedCards fetchAllCollectorGradedCards;
   private final FetchAllCollectorItems fetchAllCollectorItems;
   private final FetchAllCollectorLooseCards fetchAllCollectorLooseCards;
+  private final AddGradedCardToCollection addGradedCardToCollection;
   private final AddLooseCardToCollection addLooseCardToCollection;
   private final CollectorMapper collectorMapper;
+  private final GradedCardMapper gradedCardMapper;
   private final ItemMapper itemMapper;
   private final LooseCardMapper looseCardMapper;
 
@@ -135,6 +138,60 @@ public class CollectionController {
           final URI location =
               UriComponentsBuilder
                   .fromUriString(LOOSE_CARD)
+                  .build(dto.id());
+
+          return ResponseEntity
+              .created(location)
+              .body(dto);
+        });
+  }
+
+  @Operation(
+      summary = "Fetch all collector's graded cards",
+      description = "Fetch all collector's graded cards from its id",
+      tags = {"Collection"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "List of graded cards fetched",
+              content = {@Content(array = @ArraySchema(
+                  schema = @Schema(implementation = GradedCardDTO.class)))}),
+          @ApiResponse(
+              responseCode = "404",
+              description = "Collector not found",
+              content = @Content(schema = @Schema(implementation = ErrorDTO.class)))
+      })
+  @GetMapping(COLLECTOR_GRADED_CARDS)
+  public Mono<ResponseEntity<List<GradedCardDTO>>> findAllCollectorGradedCards(@PathVariable final Long collectorId) {
+    return fetchAllCollectorGradedCards.execute(collectorId)
+        .map(gradedCardMapper::toDTO)
+        .collectList()
+        .map(ResponseEntity::ok);
+  }
+
+  @Operation(
+      summary = "Add graded card to collection",
+      description = "Add graded card to collection",
+      tags = {"Collection"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "201",
+              description = "Graded card added successfully",
+              content = @Content(schema = @Schema(implementation = GradedCardDTO.class)))
+      })
+  @PostMapping(COLLECTOR_GRADED_CARDS)
+  public Mono<ResponseEntity<GradedCardDTO>> addGradedCardToCollection(
+      @PathVariable final Long collectorId,
+      @RequestBody @Valid final AddGradedCardCommand command) {
+    final var gradedCard = gradedCardMapper.toDomain(command, collectorId);
+    return addGradedCardToCollection.execute(gradedCard)
+        .map(gradedCardMapper::toDTO)
+        .map(dto -> {
+          final URI location =
+              UriComponentsBuilder
+                  .fromUriString(GRADED_CARD)
                   .build(dto.id());
 
           return ResponseEntity

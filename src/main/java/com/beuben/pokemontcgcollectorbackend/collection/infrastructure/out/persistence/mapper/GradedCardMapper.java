@@ -18,4 +18,12 @@ public interface GradedCardMapper {
   @Mapping(target = "grading.grade", source = "grade")
   @Mapping(target = "grading.reference", source = "gradingReference")
   GradedCard toDomain(GradedCardEntity entity);
+
+  @Mapping(target = "estimationEuros", source = "estimation.priceInEuros")
+  @Mapping(target = "estimationDate", source = "estimation.date")
+  @Mapping(target = "estimationSourceUrl", source = "estimation.sourceUrl")
+  @Mapping(target = "gradingSociety", source = "grading.society")
+  @Mapping(target = "grade", source = "grading.grade")
+  @Mapping(target = "gradingReference", source = "grading.reference")
+  GradedCardEntity toEntity(GradedCard domain);
 }

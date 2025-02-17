@@ -7,7 +7,6 @@ import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.d
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.LooseCardDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.entity.LooseCardEntity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class LooseCardFixture {
@@ -21,9 +20,9 @@ public class LooseCardFixture {
         .withFirstEdition(false)
         .withReverseHolo(false)
         .withCondition(Condition.MINT)
-        .withEstimationEuros(BigDecimal.TEN)
-        .withEstimationDate(LocalDateTime.MIN)
-        .withEstimationSourceUrl("estimation_url.com")
+        .withEstimationEuros(ItemFixture.aValidEstimation().getPriceInEuros())
+        .withEstimationDate(ItemFixture.aValidEstimation().getDate())
+        .withEstimationSourceUrl(ItemFixture.aValidEstimation().getSourceUrl())
         .withPicturesUrl("pictures_url.com")
         .withComment("a comment")
         .withCreationDate(LocalDateTime.MIN);
@@ -70,8 +69,8 @@ public class LooseCardFixture {
         .firstEdition(false)
         .reverseHolo(false)
         .condition(Condition.MINT)
-        .estimationEuros(BigDecimal.TEN)
-        .estimationSourceUrl("estimation_url.com")
+        .estimationEuros(ItemFixture.aValidEstimation().getPriceInEuros())
+        .estimationSourceUrl(ItemFixture.aValidEstimation().getSourceUrl())
         .picturesUrl("pictures_url.com")
         .comment("a comment")
         .build();
