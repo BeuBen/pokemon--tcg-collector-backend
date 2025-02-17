@@ -2,8 +2,8 @@ package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.
 
 import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.AddLooseCardToCollection;
 import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchAllCollectorItems;
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchAllCollectorLooseCards;
 import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchCollector;
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchLooseCard;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddLooseCardCommand;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.CollectorDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.ItemDTO;
@@ -33,11 +33,11 @@ import static com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = COLLECTION, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CollectionController {
   private final FetchCollector fetchCollector;
   private final FetchAllCollectorItems fetchAllCollectorItems;
-  private final FetchLooseCard fetchLooseCard;
+  private final FetchAllCollectorLooseCards fetchAllCollectorLooseCards;
   private final AddLooseCardToCollection addLooseCardToCollection;
   private final CollectorMapper collectorMapper;
   private final ItemMapper itemMapper;
@@ -46,7 +46,7 @@ public class CollectionController {
   @Operation(
       summary = "Get collector by username",
       description = "Get collector by username",
-      tags = {"Collector"})
+      tags = {"Collection"})
   @ApiResponses(
       value = {
           @ApiResponse(
@@ -67,7 +67,7 @@ public class CollectionController {
 
   @Operation(
       summary = "Fetch all collector's items",
-      description = "Fetch all collector's items from its username",
+      description = "Fetch all collector's items from its id",
       tags = {"Collection"})
   @ApiResponses(
       value = {
@@ -82,7 +82,7 @@ public class CollectionController {
               content = @Content(schema = @Schema(implementation = ErrorDTO.class)))
       })
   @GetMapping(COLLECTOR_ITEMS)
-  public Mono<ResponseEntity<List<ItemDTO>>> findAllCollectorItems(@PathVariable("id") final Long collectorId) {
+  public Mono<ResponseEntity<List<ItemDTO>>> findAllCollectorItems(@PathVariable final Long collectorId) {
     return fetchAllCollectorItems.execute(collectorId)
         .map(itemMapper::toDTO)
         .collectList()
@@ -90,25 +90,26 @@ public class CollectionController {
   }
 
   @Operation(
-      summary = "Fetch loose card",
-      description = "Fetch loose card by id",
+      summary = "Fetch all collector's loose cards",
+      description = "Fetch all collector's loose cards from its id",
       tags = {"Collection"})
   @ApiResponses(
       value = {
           @ApiResponse(
               responseCode = "200",
-              description = "Loose card found successfully",
+              description = "List of loose cards fetched",
               content = {@Content(array = @ArraySchema(
                   schema = @Schema(implementation = LooseCardDTO.class)))}),
           @ApiResponse(
               responseCode = "404",
-              description = "Loose card not found",
+              description = "Collector not found",
               content = @Content(schema = @Schema(implementation = ErrorDTO.class)))
       })
-  @GetMapping(LOOSE_CARD)
-  public Mono<ResponseEntity<LooseCardDTO>> findLooseCardById(@PathVariable final Long id) {
-    return fetchLooseCard.execute(id)
+  @GetMapping(COLLECTOR_LOOSE_CARDS)
+  public Mono<ResponseEntity<List<LooseCardDTO>>> findAllCollectorLooseCards(@PathVariable final Long collectorId) {
+    return fetchAllCollectorLooseCards.execute(collectorId)
         .map(looseCardMapper::toDTO)
+        .collectList()
         .map(ResponseEntity::ok);
   }
 
@@ -124,7 +125,7 @@ public class CollectionController {
               content = @Content(schema = @Schema(implementation = LooseCardDTO.class)))
       })
   @PostMapping(COLLECTOR_LOOSE_CARDS)
-  public Mono<ResponseEntity<LooseCardDTO>> addLooseCard(
+  public Mono<ResponseEntity<LooseCardDTO>> addLooseCardToCollection(
       @PathVariable final Long collectorId,
       @RequestBody @Valid final AddLooseCardCommand command) {
     final var looseCard = looseCardMapper.toDomain(command, collectorId);
