@@ -31,9 +31,9 @@ public class ItemFixture {
         .id(1L)
         .label("test")
         .itemType(ItemType.GRADED_CARD)
-        .estimationEuros(BigDecimal.TEN)
-        .estimationDate(LocalDateTime.MIN)
-        .estimationSourceUrl("estimation_url.com")
+        .estimationEuros(aValidEstimation().getPriceInEuros())
+        .estimationDate(ItemFixture.aValidEstimation().getDate())
+        .estimationSourceUrl(ItemFixture.aValidEstimation().getSourceUrl())
         .picturesUrl("pictures_url.com")
         .creationDate(LocalDateTime.MIN)
         .build();

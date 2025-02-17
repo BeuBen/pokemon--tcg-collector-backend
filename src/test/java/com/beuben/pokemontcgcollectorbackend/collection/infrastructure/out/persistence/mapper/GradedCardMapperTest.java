@@ -26,4 +26,17 @@ class GradedCardMapperTest {
     // ASSERT
     assertThat(mapped).isEqualTo(expected);
   }
+
+  @Test
+  void graded_card_mapping_should_return_the_right_graded_card_entity() {
+    // ARRANGE
+    final var model = aValidGradedCard();
+    final var expected = aValidGradedCardEntity();
+
+    // ACT
+    final var mapped = mapper.toEntity(model);
+
+    // ASSERT
+    assertThat(mapped).isEqualTo(expected);
+  }
 }

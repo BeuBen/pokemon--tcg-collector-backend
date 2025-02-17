@@ -26,4 +26,17 @@ class LooseCardMapperTest {
     // ASSERT
     assertThat(mapped).isEqualTo(expected);
   }
+
+  @Test
+  void loose_card_mapping_should_return_the_right_loose_card_entity() {
+    // ARRANGE
+    final var model = aValidLooseCard();
+    final var expected = aValidLooseCardEntity();
+
+    // ACT
+    final var mapped = mapper.toEntity(model);
+
+    // ASSERT
+    assertThat(mapped).isEqualTo(expected);
+  }
 }

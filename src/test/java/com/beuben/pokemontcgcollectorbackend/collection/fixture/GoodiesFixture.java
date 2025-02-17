@@ -5,7 +5,6 @@ import com.beuben.pokemontcgcollectorbackend.collection.domain.Goodies;
 import com.beuben.pokemontcgcollectorbackend.collection.domain.GoodiesType;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persistence.entity.GoodiesEntity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class GoodiesFixture {
@@ -16,9 +15,9 @@ public class GoodiesFixture {
         .withLabel("test")
         .withGoodiesType(GoodiesType.FIGURE)
         .withCondition(Condition.MINT)
-        .withEstimationEuros(BigDecimal.TEN)
-        .withEstimationDate(LocalDateTime.MIN)
-        .withEstimationSourceUrl("estimation_url.com")
+        .withEstimationEuros(ItemFixture.aValidEstimation().getPriceInEuros())
+        .withEstimationDate(ItemFixture.aValidEstimation().getDate())
+        .withEstimationSourceUrl(ItemFixture.aValidEstimation().getSourceUrl())
         .withPicturesUrl("pictures_url.com")
         .withComment("a comment")
         .withCreationDate(LocalDateTime.MIN);
