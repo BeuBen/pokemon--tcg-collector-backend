@@ -1,10 +1,7 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.controller;
 
 import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.*;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddGoodiesCommand;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddGradedCardCommand;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddLooseCardCommand;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddMasterSetCommand;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.*;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.*;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.*;
 import com.beuben.pokemontcgcollectorbackend.core.exception.dto.ErrorDTO;
@@ -37,16 +34,19 @@ public class CollectionController {
   private final FetchAllCollectorItems fetchAllCollectorItems;
   private final FetchAllCollectorLooseCards fetchAllCollectorLooseCards;
   private final FetchAllCollectorMasterSets fetchAllCollectorMasterSets;
+  private final FetchAllCollectorSealed fetchAllCollectorSealed;
   private final AddGoodiesToCollection addGoodiesToCollection;
   private final AddGradedCardToCollection addGradedCardToCollection;
   private final AddLooseCardToCollection addLooseCardToCollection;
   private final AddMasterSetToCollection addMasterSetToCollection;
+  private final AddSealedToCollection addSealedToCollection;
   private final CollectorMapper collectorMapper;
   private final GoodiesMapper goodiesMapper;
   private final GradedCardMapper gradedCardMapper;
   private final ItemMapper itemMapper;
   private final LooseCardMapper looseCardMapper;
   private final MasterSetMapper masterSetMapper;
+  private final SealedMapper sealedMapper;
 
   @Operation(
       summary = "Get collector by username",
@@ -305,6 +305,61 @@ public class CollectionController {
           final URI location =
               UriComponentsBuilder
                   .fromPath(MASTER_SET)
+                  .buildAndExpand(dto.id())
+                  .toUri();
+
+          return ResponseEntity
+              .created(location)
+              .body(dto);
+        });
+  }
+
+  @Operation(
+      summary = "Fetch all collector's sealed",
+      description = "Fetch all collector's sealed from its id",
+      tags = {"Collection"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "List of sealed fetched",
+              content = {@Content(array = @ArraySchema(
+                  schema = @Schema(implementation = SealedDTO.class)))}),
+          @ApiResponse(
+              responseCode = "404",
+              description = "Collector not found",
+              content = @Content(schema = @Schema(implementation = ErrorDTO.class)))
+      })
+  @GetMapping(COLLECTOR_SEALED)
+  public Mono<ResponseEntity<List<SealedDTO>>> findAllCollectorSealed(@PathVariable final Long collectorId) {
+    return fetchAllCollectorSealed.execute(collectorId)
+        .map(sealedMapper::toDTO)
+        .collectList()
+        .map(ResponseEntity::ok);
+  }
+
+  @Operation(
+      summary = "Add sealed to collection",
+      description = "Add sealed to collection",
+      tags = {"Collection"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "201",
+              description = "Sealed added successfully",
+              content = @Content(schema = @Schema(implementation = SealedDTO.class)))
+      })
+  @PostMapping(COLLECTOR_SEALED)
+  public Mono<ResponseEntity<SealedDTO>> addSealedToCollection(
+      @PathVariable final Long collectorId,
+      @RequestBody @Valid final AddSealedCommand command) {
+    final var sealed = sealedMapper.toDomain(command, collectorId);
+    return addSealedToCollection.execute(sealed)
+        .map(sealedMapper::toDTO)
+        .map(dto -> {
+          final URI location =
+              UriComponentsBuilder
+                  .fromPath(SEALED)
                   .buildAndExpand(dto.id())
                   .toUri();
 

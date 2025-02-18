@@ -17,11 +17,11 @@ class GoodiesMapperTest {
   @Test
   void goodies_entity_mapping_should_return_the_right_goodies() {
     // ARRANGE
-    final var model = aValidGoodiesEntity();
+    final var entity = aValidGoodiesEntity();
     final var expected = aValidGoodies();
 
     // ACT
-    final var mapped = mapper.toDomain(model);
+    final var mapped = mapper.toDomain(entity);
 
     // ASSERT
     assertThat(mapped).isEqualTo(expected);

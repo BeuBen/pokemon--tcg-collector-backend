@@ -77,6 +77,14 @@ public class SwaggerConfiguration {
   }
 
   @Bean
+  public GroupedOpenApi sealed() {
+    return GroupedOpenApi.builder()
+        .group(SWAGGER_GROUP_SEALED)
+        .pathsToMatch(SWAGGER_PATH_SEALED)
+        .build();
+  }
+
+  @Bean
   public GroupedOpenApi synchronization() {
     return GroupedOpenApi.builder()
         .group(SWAGGER_GROUP_SYNCHRO)

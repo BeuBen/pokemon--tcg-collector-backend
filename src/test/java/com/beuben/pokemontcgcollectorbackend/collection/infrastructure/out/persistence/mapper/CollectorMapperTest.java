@@ -17,11 +17,11 @@ class CollectorMapperTest {
   @Test
   void card_dto_mapping_should_return_the_right_card() {
     // ARRANGE
-    final var model = aValidCollectorEntity();
+    final var entity = aValidCollectorEntity();
     final var expected = aValidCollector();
 
     // ACT
-    final var mapped = mapper.toDomain(model);
+    final var mapped = mapper.toDomain(entity);
 
     // ASSERT
     assertThat(mapped).isEqualTo(expected);
