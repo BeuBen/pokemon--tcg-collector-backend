@@ -18,6 +18,8 @@ public class Constants {
   public static final String SWAGGER_PATH_GRADED_CARD = "/**/graded-cards/**";
   public static final String SWAGGER_GROUP_LOOSE_CARD = "Loose Card";
   public static final String SWAGGER_PATH_LOOSE_CARD = "/**/loose-cards/**";
+  public static final String SWAGGER_GROUP_MASTER_SET = "Master Set";
+  public static final String SWAGGER_PATH_MASTER_SET = "/**/master-sets/**";
   public static final String SWAGGER_GROUP_SYNCHRO = "Synchronization";
   public static final String SWAGGER_PATH_SYNCHRO = "/**/synchronization/**";
 
