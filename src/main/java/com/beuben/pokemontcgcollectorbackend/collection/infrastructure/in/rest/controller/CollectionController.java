@@ -135,8 +135,9 @@ public class CollectionController {
         .map(dto -> {
           final URI location =
               UriComponentsBuilder
-                  .fromUriString(LOOSE_CARD)
-                  .build(dto.id());
+                  .fromPath(LOOSE_CARD)
+                  .buildAndExpand(dto.id())
+                  .toUri();
 
           return ResponseEntity
               .created(location)
@@ -189,8 +190,9 @@ public class CollectionController {
         .map(dto -> {
           final URI location =
               UriComponentsBuilder
-                  .fromUriString(GRADED_CARD)
-                  .build(dto.id());
+                  .fromPath(GRADED_CARD)
+                  .buildAndExpand(dto.id())
+                  .toUri();
 
           return ResponseEntity
               .created(location)
@@ -243,8 +245,9 @@ public class CollectionController {
         .map(dto -> {
           final URI location =
               UriComponentsBuilder
-                  .fromUriString(GOODIES)
-                  .build(dto.id());
+                  .fromPath(GOODIES)
+                  .buildAndExpand(dto.id())
+                  .toUri();
 
           return ResponseEntity
               .created(location)
