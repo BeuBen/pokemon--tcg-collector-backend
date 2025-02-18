@@ -17,11 +17,11 @@ class MasterSetMapperTest {
   @Test
   void master_set_entity_mapping_should_return_the_right_master_set() {
     // ARRANGE
-    final var model = aValidMasterSetEntity();
+    final var entity = aValidMasterSetEntity();
     final var expected = aValidMasterSet();
 
     // ACT
-    final var mapped = mapper.toDomain(model);
+    final var mapped = mapper.toDomain(entity);
 
     // ASSERT
     assertThat(mapped).isEqualTo(expected);
