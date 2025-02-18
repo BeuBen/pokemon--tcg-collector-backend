@@ -4,6 +4,7 @@ import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.*;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddGoodiesCommand;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddGradedCardCommand;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddLooseCardCommand;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddMasterSetCommand;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.*;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.*;
 import com.beuben.pokemontcgcollectorbackend.core.exception.dto.ErrorDTO;
@@ -35,14 +36,17 @@ public class CollectionController {
   private final FetchAllCollectorGradedCards fetchAllCollectorGradedCards;
   private final FetchAllCollectorItems fetchAllCollectorItems;
   private final FetchAllCollectorLooseCards fetchAllCollectorLooseCards;
+  private final FetchAllCollectorMasterSets fetchAllCollectorMasterSets;
   private final AddGoodiesToCollection addGoodiesToCollection;
   private final AddGradedCardToCollection addGradedCardToCollection;
   private final AddLooseCardToCollection addLooseCardToCollection;
+  private final AddMasterSetToCollection addMasterSetToCollection;
   private final CollectorMapper collectorMapper;
   private final GoodiesMapper goodiesMapper;
   private final GradedCardMapper gradedCardMapper;
   private final ItemMapper itemMapper;
   private final LooseCardMapper looseCardMapper;
+  private final MasterSetMapper masterSetMapper;
 
   @Operation(
       summary = "Get collector by username",
@@ -246,6 +250,61 @@ public class CollectionController {
           final URI location =
               UriComponentsBuilder
                   .fromPath(GOODIES)
+                  .buildAndExpand(dto.id())
+                  .toUri();
+
+          return ResponseEntity
+              .created(location)
+              .body(dto);
+        });
+  }
+
+  @Operation(
+      summary = "Fetch all collector's master sets",
+      description = "Fetch all collector's master sets from its id",
+      tags = {"Collection"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "List of master sets fetched",
+              content = {@Content(array = @ArraySchema(
+                  schema = @Schema(implementation = MasterSetDTO.class)))}),
+          @ApiResponse(
+              responseCode = "404",
+              description = "Collector not found",
+              content = @Content(schema = @Schema(implementation = ErrorDTO.class)))
+      })
+  @GetMapping(COLLECTOR_MASTER_SETS)
+  public Mono<ResponseEntity<List<MasterSetDTO>>> findAllCollectorMasterSets(@PathVariable final Long collectorId) {
+    return fetchAllCollectorMasterSets.execute(collectorId)
+        .map(masterSetMapper::toDTO)
+        .collectList()
+        .map(ResponseEntity::ok);
+  }
+
+  @Operation(
+      summary = "Add master set to collection",
+      description = "Add master set to collection",
+      tags = {"Collection"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "201",
+              description = "Master set added successfully",
+              content = @Content(schema = @Schema(implementation = MasterSetDTO.class)))
+      })
+  @PostMapping(COLLECTOR_MASTER_SETS)
+  public Mono<ResponseEntity<MasterSetDTO>> addMasterSetToCollection(
+      @PathVariable final Long collectorId,
+      @RequestBody @Valid final AddMasterSetCommand command) {
+    final var masterSet = masterSetMapper.toDomain(command, collectorId);
+    return addMasterSetToCollection.execute(masterSet)
+        .map(masterSetMapper::toDTO)
+        .map(dto -> {
+          final URI location =
+              UriComponentsBuilder
+                  .fromPath(MASTER_SET)
                   .buildAndExpand(dto.id())
                   .toUri();
 
