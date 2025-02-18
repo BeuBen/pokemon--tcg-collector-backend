@@ -45,6 +45,14 @@ public class SwaggerConfiguration {
   }
 
   @Bean
+  public GroupedOpenApi goodies() {
+    return GroupedOpenApi.builder()
+        .group(SWAGGER_GROUP_GOODIES)
+        .pathsToMatch(SWAGGER_PATH_GOODIES)
+        .build();
+  }
+
+  @Bean
   public GroupedOpenApi gradedCard() {
     return GroupedOpenApi.builder()
         .group(SWAGGER_GROUP_GRADED_CARD)

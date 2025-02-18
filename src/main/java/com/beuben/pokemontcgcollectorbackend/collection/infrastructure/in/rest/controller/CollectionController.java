@@ -1,16 +1,11 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.controller;
 
 import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.*;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddGoodiesCommand;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddGradedCardCommand;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.AddLooseCardCommand;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.CollectorDTO;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.GradedCardDTO;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.ItemDTO;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.LooseCardDTO;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.CollectorMapper;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.GradedCardMapper;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.ItemMapper;
-import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.LooseCardMapper;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.*;
+import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.*;
 import com.beuben.pokemontcgcollectorbackend.core.exception.dto.ErrorDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -36,12 +31,15 @@ import static com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in
 @RequestMapping(value = COLLECTION, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CollectionController {
   private final FetchCollector fetchCollector;
+  private final FetchAllCollectorGoodies fetchAllCollectorGoodies;
   private final FetchAllCollectorGradedCards fetchAllCollectorGradedCards;
   private final FetchAllCollectorItems fetchAllCollectorItems;
   private final FetchAllCollectorLooseCards fetchAllCollectorLooseCards;
+  private final AddGoodiesToCollection addGoodiesToCollection;
   private final AddGradedCardToCollection addGradedCardToCollection;
   private final AddLooseCardToCollection addLooseCardToCollection;
   private final CollectorMapper collectorMapper;
+  private final GoodiesMapper goodiesMapper;
   private final GradedCardMapper gradedCardMapper;
   private final ItemMapper itemMapper;
   private final LooseCardMapper looseCardMapper;
@@ -192,6 +190,60 @@ public class CollectionController {
           final URI location =
               UriComponentsBuilder
                   .fromUriString(GRADED_CARD)
+                  .build(dto.id());
+
+          return ResponseEntity
+              .created(location)
+              .body(dto);
+        });
+  }
+
+  @Operation(
+      summary = "Fetch all collector's goodies",
+      description = "Fetch all collector's goodies from its id",
+      tags = {"Collection"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "List of goodies fetched",
+              content = {@Content(array = @ArraySchema(
+                  schema = @Schema(implementation = GoodiesDTO.class)))}),
+          @ApiResponse(
+              responseCode = "404",
+              description = "Collector not found",
+              content = @Content(schema = @Schema(implementation = ErrorDTO.class)))
+      })
+  @GetMapping(COLLECTOR_GOODIES)
+  public Mono<ResponseEntity<List<GoodiesDTO>>> findAllCollectorGoodies(@PathVariable final Long collectorId) {
+    return fetchAllCollectorGoodies.execute(collectorId)
+        .map(goodiesMapper::toDTO)
+        .collectList()
+        .map(ResponseEntity::ok);
+  }
+
+  @Operation(
+      summary = "Add goodies to collection",
+      description = "Add goodies to collection",
+      tags = {"Collection"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "201",
+              description = "Goodies added successfully",
+              content = @Content(schema = @Schema(implementation = GoodiesDTO.class)))
+      })
+  @PostMapping(COLLECTOR_GOODIES)
+  public Mono<ResponseEntity<GoodiesDTO>> addGoodiesToCollection(
+      @PathVariable final Long collectorId,
+      @RequestBody @Valid final AddGoodiesCommand command) {
+    final var goodies = goodiesMapper.toDomain(command, collectorId);
+    return addGoodiesToCollection.execute(goodies)
+        .map(goodiesMapper::toDTO)
+        .map(dto -> {
+          final URI location =
+              UriComponentsBuilder
+                  .fromUriString(GOODIES)
                   .build(dto.id());
 
           return ResponseEntity
