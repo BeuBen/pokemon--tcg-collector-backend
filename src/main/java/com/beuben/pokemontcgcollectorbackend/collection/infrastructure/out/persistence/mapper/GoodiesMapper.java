@@ -15,4 +15,9 @@ public interface GoodiesMapper {
   @Mapping(target = "estimation.date", source = "estimationDate")
   @Mapping(target = "estimation.sourceUrl", source = "estimationSourceUrl")
   Goodies toDomain(GoodiesEntity entity);
+
+  @Mapping(target = "estimationEuros", source = "estimation.priceInEuros")
+  @Mapping(target = "estimationDate", source = "estimation.date")
+  @Mapping(target = "estimationSourceUrl", source = "estimation.sourceUrl")
+  GoodiesEntity toEntity(Goodies domain);
 }

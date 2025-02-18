@@ -26,4 +26,17 @@ class GoodiesMapperTest {
     // ASSERT
     assertThat(mapped).isEqualTo(expected);
   }
+
+  @Test
+  void goodies_mapping_should_return_the_right_goodies_entity() {
+    // ARRANGE
+    final var model = aValidGoodies();
+    final var expected = aValidGoodiesEntity();
+
+    // ACT
+    final var mapped = mapper.toEntity(model);
+
+    // ASSERT
+    assertThat(mapped).isEqualTo(expected);
+  }
 }
