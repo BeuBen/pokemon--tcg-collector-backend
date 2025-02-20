@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 import static com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.api.pokemontcg.PokemonTcgApiParam.INITIAL_PAGE;
 
 @Component
@@ -17,8 +20,6 @@ import static com.beuben.pokemontcgcollectorbackend.synchronization.infrastructu
 public class ExistingCardAdapter implements ExistingCardProvider {
   private final PokemonTcgApi pokemonTcgApi;
   private final CardMapper mapper;
-
-  //TODO ajouter du cache sur ce qu'on récupère de l'api pokemontcg.io
 
   @Override
   public Flux<Card> findAll() {
@@ -29,18 +30,24 @@ public class ExistingCardAdapter implements ExistingCardProvider {
 
   private Flux<PokemonTcgCardWrapperDTO> fetchAllPages() {
     return pokemonTcgApi.findAllCards(INITIAL_PAGE)
-        .expand(responseWrapper -> {
-          var totalCount = responseWrapper.totalCount();
-          var pageSize = responseWrapper.pageSize();
-          var totalPages = (int) Math.ceil((double) totalCount / pageSize);
+        .flatMapMany(this::getRemainingPages);
+  }
 
-          var currentPage = responseWrapper.page();
+  private Flux<PokemonTcgCardWrapperDTO> getRemainingPages(PokemonTcgCardWrapperDTO firstPage) {
+    final var totalCount = firstPage.totalCount();
+    final var pageSize = firstPage.pageSize();
+    final var totalPages = (int) Math.ceil((double) totalCount / pageSize);
 
-          if (currentPage < totalPages) {
-            return pokemonTcgApi.findAllCards(currentPage + 1);
-          } else {
-            return Mono.empty();
-          }
-        });
+    var allRemainingPagesMonos = getParallelMonos(totalPages);
+
+    return Flux.concat(
+        Mono.just(firstPage),
+        Flux.merge(allRemainingPagesMonos));
+  }
+
+  private List<Mono<PokemonTcgCardWrapperDTO>> getParallelMonos(int totalPages) {
+    return IntStream.rangeClosed(INITIAL_PAGE + 1, totalPages)
+        .mapToObj(pokemonTcgApi::findAllCards)
+        .toList();
   }
 }

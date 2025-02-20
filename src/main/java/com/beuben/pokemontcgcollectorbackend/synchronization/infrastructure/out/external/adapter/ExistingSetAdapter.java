@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 import static com.beuben.pokemontcgcollectorbackend.synchronization.infrastructure.out.external.api.pokemontcg.PokemonTcgApiParam.INITIAL_PAGE;
 
 @Component
@@ -27,18 +30,24 @@ public class ExistingSetAdapter implements ExistingSetProvider {
 
   private Flux<PokemonTcgSetWrapperDTO> fetchAllPages() {
     return pokemonTcgApi.findAllSets(INITIAL_PAGE)
-        .expand(responseWrapper -> {
-          var totalCount = responseWrapper.totalCount();
-          var pageSize = responseWrapper.pageSize();
-          var totalPages = (int) Math.ceil((double) totalCount / pageSize);
+        .flatMapMany(this::getRemainingPages);
+  }
 
-          var currentPage = responseWrapper.page();
+  private Flux<PokemonTcgSetWrapperDTO> getRemainingPages(PokemonTcgSetWrapperDTO firstPage) {
+    final var totalCount = firstPage.totalCount();
+    final var pageSize = firstPage.pageSize();
+    final var totalPages = (int) Math.ceil((double) totalCount / pageSize);
 
-          if (currentPage < totalPages) {
-            return pokemonTcgApi.findAllSets(currentPage + 1);
-          } else {
-            return Mono.empty();
-          }
-        });
+    var allRemainingPagesMonos = getParallelMonos(totalPages);
+
+    return Flux.concat(
+        Mono.just(firstPage),
+        Flux.merge(allRemainingPagesMonos));
+  }
+
+  private List<Mono<PokemonTcgSetWrapperDTO>> getParallelMonos(int totalPages) {
+    return IntStream.rangeClosed(INITIAL_PAGE + 1, totalPages)
+        .mapToObj(pokemonTcgApi::findAllSets)
+        .toList();
   }
 }
