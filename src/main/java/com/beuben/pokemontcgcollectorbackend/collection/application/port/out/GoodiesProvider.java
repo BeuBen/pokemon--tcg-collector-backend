@@ -10,4 +10,6 @@ public interface GoodiesProvider {
   Mono<Goodies> findById(Long id);
 
   Mono<Goodies> add(Goodies goodies);
+
+  Mono<Goodies> update(Goodies goodies);
 }

@@ -1,11 +1,11 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper;
 
-import com.beuben.pokemontcgcollectorbackend.collection.fixture.ItemFixture;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static com.beuben.pokemontcgcollectorbackend.collection.fixture.CollectorFixture.aValidCollector;
+import static com.beuben.pokemontcgcollectorbackend.collection.fixture.EstimationFixture.aValidEstimation;
 import static com.beuben.pokemontcgcollectorbackend.collection.fixture.GoodiesFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +23,7 @@ class GoodiesMapperTest {
     final var expected =
         aValidGoodies()
             .withId(null)
-            .withEstimation(ItemFixture.aValidEstimation()
+            .withEstimation(aValidEstimation()
                 .withDate(null))
             .withCreationDate(null);
 
