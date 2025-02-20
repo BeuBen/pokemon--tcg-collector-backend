@@ -43,4 +43,12 @@ public class LooseCardAdapter implements LooseCardProvider {
     return repository.save(looseCardEntity)
         .map(mapper::toDomain);
   }
+
+  @Override
+  public Mono<LooseCard> update(LooseCard looseCard) {
+    final var toSave = mapper.toEntity(looseCard);
+
+    return repository.save(toSave)
+        .map(mapper::toDomain);
+  }
 }

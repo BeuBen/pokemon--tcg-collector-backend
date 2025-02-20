@@ -10,4 +10,6 @@ public interface LooseCardProvider {
   Mono<LooseCard> findById(Long id);
 
   Mono<LooseCard> add(LooseCard looseCard);
+
+  Mono<LooseCard> update(LooseCard looseCard);
 }
