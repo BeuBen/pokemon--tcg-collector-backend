@@ -10,4 +10,6 @@ public interface SealedProvider {
   Mono<Sealed> findById(Long id);
 
   Mono<Sealed> add(Sealed sealed);
+
+  Mono<Sealed> update(Sealed sealed);
 }
