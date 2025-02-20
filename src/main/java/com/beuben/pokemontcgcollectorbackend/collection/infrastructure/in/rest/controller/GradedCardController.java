@@ -1,6 +1,6 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.controller;
 
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchGradedCard;
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.fetch.FetchGradedCard;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.GradedCardDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.GradedCardMapper;
 import com.beuben.pokemontcgcollectorbackend.core.exception.dto.ErrorDTO;

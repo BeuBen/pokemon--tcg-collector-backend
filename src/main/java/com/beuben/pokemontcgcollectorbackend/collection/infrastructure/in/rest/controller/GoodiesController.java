@@ -1,6 +1,6 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.controller;
 
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchGoodies;
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.fetch.FetchGoodies;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.GoodiesDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.GoodiesMapper;
 import com.beuben.pokemontcgcollectorbackend.core.exception.dto.ErrorDTO;

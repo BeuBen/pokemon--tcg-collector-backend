@@ -1,6 +1,6 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.controller;
 
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchSealed;
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.fetch.FetchSealed;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.SealedDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.SealedMapper;
 import com.beuben.pokemontcgcollectorbackend.core.exception.dto.ErrorDTO;

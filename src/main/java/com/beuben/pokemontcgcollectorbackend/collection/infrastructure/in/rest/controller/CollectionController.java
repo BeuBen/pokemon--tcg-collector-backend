@@ -1,6 +1,7 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.controller;
 
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.*;
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.add.*;
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.fetch.*;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.command.*;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.*;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.*;

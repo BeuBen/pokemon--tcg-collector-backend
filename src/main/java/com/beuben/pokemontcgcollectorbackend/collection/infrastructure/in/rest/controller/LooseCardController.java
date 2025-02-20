@@ -1,6 +1,6 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.controller;
 
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchLooseCard;
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.fetch.FetchLooseCard;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.LooseCardDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.LooseCardMapper;
 import com.beuben.pokemontcgcollectorbackend.core.exception.dto.ErrorDTO;

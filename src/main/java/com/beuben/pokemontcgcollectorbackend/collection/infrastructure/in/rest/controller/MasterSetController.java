@@ -1,6 +1,6 @@
 package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.controller;
 
-import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.FetchMasterSet;
+import com.beuben.pokemontcgcollectorbackend.collection.application.port.in.fetch.FetchMasterSet;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.dto.result.MasterSetDTO;
 import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest.mapper.MasterSetMapper;
 import com.beuben.pokemontcgcollectorbackend.core.exception.dto.ErrorDTO;
