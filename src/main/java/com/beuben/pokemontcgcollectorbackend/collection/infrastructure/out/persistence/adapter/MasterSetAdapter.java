@@ -43,4 +43,12 @@ public class MasterSetAdapter implements MasterSetProvider {
     return repository.save(masterSetEntity)
         .map(mapper::toDomain);
   }
+
+  @Override
+  public Mono<MasterSet> update(MasterSet masterSet) {
+    final var toSave = mapper.toEntity(masterSet);
+
+    return repository.save(toSave)
+        .map(mapper::toDomain);
+  }
 }

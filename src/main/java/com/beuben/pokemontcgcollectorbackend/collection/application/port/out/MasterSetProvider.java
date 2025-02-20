@@ -10,4 +10,6 @@ public interface MasterSetProvider {
   Mono<MasterSet> findById(Long id);
 
   Mono<MasterSet> add(MasterSet masterSet);
+
+  Mono<MasterSet> update(MasterSet masterSet);
 }
