@@ -10,4 +10,6 @@ public interface GradedCardProvider {
   Mono<GradedCard> findById(Long id);
 
   Mono<GradedCard> add(GradedCard gradedCard);
+
+  Mono<GradedCard> update(GradedCard gradedCard);
 }

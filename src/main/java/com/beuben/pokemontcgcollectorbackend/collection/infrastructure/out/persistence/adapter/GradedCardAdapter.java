@@ -43,4 +43,12 @@ public class GradedCardAdapter implements GradedCardProvider {
     return repository.save(gradedCardEntity)
         .map(mapper::toDomain);
   }
+
+  @Override
+  public Mono<GradedCard> update(GradedCard gradedCard) {
+    final var toSave = mapper.toEntity(gradedCard);
+
+    return repository.save(toSave)
+        .map(mapper::toDomain);
+  }
 }
