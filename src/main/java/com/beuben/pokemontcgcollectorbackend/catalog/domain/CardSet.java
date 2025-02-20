@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.With;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @With
@@ -22,7 +22,7 @@ public class CardSet {
   private String symbolImage;
   private String logoImage;
 
-  public boolean isInSet(final Set<CardSet> cardSets) {
+  public boolean isInList(final List<CardSet> cardSets) {
     return cardSets.stream()
         .anyMatch(cardSet -> cardSet.isSameAs(this));
   }

@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.With;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Data
 @With
@@ -21,8 +21,8 @@ public class Card {
   private String number;
   private String image;
 
-  public boolean isInSet(final Set<Card> cardSet) {
-    return cardSet.stream()
+  public boolean isInList(final List<Card> cards) {
+    return cards.stream()
         .anyMatch(card -> card.isSameAs(this));
   }
 
