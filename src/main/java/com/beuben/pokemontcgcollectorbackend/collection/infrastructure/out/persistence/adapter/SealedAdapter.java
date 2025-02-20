@@ -43,4 +43,12 @@ public class SealedAdapter implements SealedProvider {
     return repository.save(sealedEntity)
         .map(mapper::toDomain);
   }
+
+  @Override
+  public Mono<Sealed> update(Sealed sealed) {
+    final var toSave = mapper.toEntity(sealed);
+
+    return repository.save(toSave)
+        .map(mapper::toDomain);
+  }
 }
