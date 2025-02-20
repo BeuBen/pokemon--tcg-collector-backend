@@ -43,4 +43,12 @@ public class GoodiesAdapter implements GoodiesProvider {
     return repository.save(gradedCardEntity)
         .map(mapper::toDomain);
   }
+
+  @Override
+  public Mono<Goodies> update(Goodies goodies) {
+    final var toSave = mapper.toEntity(goodies);
+
+    return repository.save(toSave)
+        .map(mapper::toDomain);
+  }
 }

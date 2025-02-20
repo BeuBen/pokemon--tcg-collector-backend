@@ -9,6 +9,8 @@ import com.beuben.pokemontcgcollectorbackend.collection.infrastructure.out.persi
 
 import java.time.LocalDateTime;
 
+import static com.beuben.pokemontcgcollectorbackend.collection.fixture.EstimationFixture.aValidEstimation;
+
 public class LooseCardFixture {
   public static LooseCardEntity aValidLooseCardEntity() {
     return new LooseCardEntity()
@@ -20,9 +22,9 @@ public class LooseCardFixture {
         .withFirstEdition(false)
         .withReverseHolo(false)
         .withCondition(Condition.MINT)
-        .withEstimationEuros(ItemFixture.aValidEstimation().getPriceInEuros())
-        .withEstimationDate(ItemFixture.aValidEstimation().getDate())
-        .withEstimationSourceUrl(ItemFixture.aValidEstimation().getSourceUrl())
+        .withEstimationEuros(aValidEstimation().getPriceInEuros())
+        .withEstimationDate(aValidEstimation().getDate())
+        .withEstimationSourceUrl(aValidEstimation().getSourceUrl())
         .withPicturesUrl("pictures_url.com")
         .withComment("a comment")
         .withCreationDate(LocalDateTime.MIN);
@@ -38,7 +40,7 @@ public class LooseCardFixture {
         .withFirstEdition(false)
         .withReverseHolo(false)
         .withCondition(Condition.MINT)
-        .withEstimation(ItemFixture.aValidEstimation())
+        .withEstimation(aValidEstimation())
         .withPicturesUrl("pictures_url.com")
         .withComment("a comment")
         .withCreationDate(LocalDateTime.MIN);
@@ -54,7 +56,7 @@ public class LooseCardFixture {
         .firstEdition(false)
         .reverseHolo(false)
         .condition(Condition.MINT)
-        .estimation(ItemFixture.aValidEstimation())
+        .estimation(aValidEstimation())
         .picturesUrl("pictures_url.com")
         .comment("a comment")
         .creationDate(LocalDateTime.MIN)
@@ -69,8 +71,8 @@ public class LooseCardFixture {
         .firstEdition(false)
         .reverseHolo(false)
         .condition(Condition.MINT)
-        .estimationEuros(ItemFixture.aValidEstimation().getPriceInEuros())
-        .estimationSourceUrl(ItemFixture.aValidEstimation().getSourceUrl())
+        .estimationEuros(aValidEstimation().getPriceInEuros())
+        .estimationSourceUrl(aValidEstimation().getSourceUrl())
         .picturesUrl("pictures_url.com")
         .comment("a comment")
         .build();
