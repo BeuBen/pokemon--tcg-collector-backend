@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.beuben.pokemontcgcollectorbackend.collection.fixture.EstimationFixture.aValidEstimation;
-import static com.beuben.pokemontcgcollectorbackend.collection.fixture.EstimationFixture.aValidUpdateItemEstimationCommand;
+import static com.beuben.pokemontcgcollectorbackend.collection.fixture.EstimationFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -22,6 +21,19 @@ class EstimationMapperTest {
 
     // ACT
     final var mapped = mapper.toDomain(command);
+
+    // ASSERT
+    assertThat(mapped).isEqualTo(expected);
+  }
+
+  @Test
+  void collection_estimation_mapping_should_return_the_right_collection_estimation_dto() {
+    // ARRANGE
+    final var model = aValidCollectionEstimation();
+    final var expected = aValidCollectionEstimationDTO();
+
+    // ACT
+    final var mapped = mapper.toDTO(model);
 
     // ASSERT
     assertThat(mapped).isEqualTo(expected);

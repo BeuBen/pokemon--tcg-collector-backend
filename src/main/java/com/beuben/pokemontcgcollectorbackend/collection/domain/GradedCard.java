@@ -24,4 +24,6 @@ public class GradedCard {
   private String picturesUrl;
   private String comment;
   private LocalDateTime creationDate;
+  private boolean isFromMasterSet;
+  private Long masterSetId;
 }
