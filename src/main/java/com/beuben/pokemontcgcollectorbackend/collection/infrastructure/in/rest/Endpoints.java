@@ -3,6 +3,7 @@ package com.beuben.pokemontcgcollectorbackend.collection.infrastructure.in.rest;
 public class Endpoints {
   public static final String COLLECTION = "/collection";
   public static final String COLLECTORS = "/collectors";
+  public static final String COLLECTOR_ESTIMATION = "/collectors/{collectorId}/estimation";
   public static final String COLLECTOR_GOODIES = "/collectors/{collectorId}/goodies";
   public static final String COLLECTOR_GRADED_CARDS = "/collectors/{collectorId}/graded-cards";
   public static final String COLLECTOR_ITEMS = "/collectors/{collectorId}/items";

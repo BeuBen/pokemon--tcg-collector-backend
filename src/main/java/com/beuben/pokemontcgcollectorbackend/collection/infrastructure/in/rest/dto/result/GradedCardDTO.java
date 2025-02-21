@@ -20,5 +20,7 @@ public record GradedCardDTO(
     Estimation estimation,
     String picturesUrl,
     String comment,
-    LocalDateTime creationDate) {
+    LocalDateTime creationDate,
+    boolean fromMasterSet,
+    Long masterSetId) {
 }

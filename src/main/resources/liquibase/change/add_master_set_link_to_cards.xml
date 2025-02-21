@@ -1,0 +1,45 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <changeSet author="BeuBen" id="add-master-set-columns-to-loose-card">
+    <preConditions>
+      <and>
+        <tableExists tableName="loose_card"/>
+        <tableExists tableName="master_set"/>
+      </and>
+    </preConditions>
+    <addColumn tableName="loose_card">
+      <column name="is_from_master_set" type="boolean" defaultValue="false">
+        <constraints nullable="false"/>
+      </column>
+      <column name="master_set_id" type="bigint">
+        <constraints
+            nullable="true"
+            references="master_set(id)"
+            foreignKeyName="fk_loose_card_master_set"/>
+      </column>
+    </addColumn>
+  </changeSet>
+
+  <changeSet author="BeuBen" id="add-master-set-columns-to-graded-card">
+    <preConditions>
+      <and>
+        <tableExists tableName="graded_card"/>
+        <tableExists tableName="master_set"/>
+      </and>
+    </preConditions>
+    <addColumn tableName="graded_card">
+      <column name="is_from_master_set" type="boolean" defaultValue="false">
+        <constraints nullable="false"/>
+      </column>
+      <column name="master_set_id" type="bigint">
+        <constraints
+            nullable="true"
+            references="master_set(id)"
+            foreignKeyName="fk_graded_card_master_set"/>
+      </column>
+    </addColumn>
+  </changeSet>
+</databaseChangeLog>

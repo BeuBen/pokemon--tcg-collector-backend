@@ -23,4 +23,10 @@ public class Sealed {
   private String picturesUrl;
   private String comment;
   private LocalDateTime creationDate;
+
+  public BigDecimal getRelativeEstimationInEuros() {
+    return isProtected
+        ? estimation.getPriceInEuros().add(protectionCost)
+        : estimation.getPriceInEuros();
+  }
 }

@@ -36,12 +36,14 @@ public class CollectionController {
   private final FetchAllCollectorLooseCards fetchAllCollectorLooseCards;
   private final FetchAllCollectorMasterSets fetchAllCollectorMasterSets;
   private final FetchAllCollectorSealed fetchAllCollectorSealed;
+  private final FetchCollectionEstimation fetchCollectionEstimation;
   private final AddGoodiesToCollection addGoodiesToCollection;
   private final AddGradedCardToCollection addGradedCardToCollection;
   private final AddLooseCardToCollection addLooseCardToCollection;
   private final AddMasterSetToCollection addMasterSetToCollection;
   private final AddSealedToCollection addSealedToCollection;
   private final CollectorMapper collectorMapper;
+  private final EstimationMapper estimationMapper;
   private final GoodiesMapper goodiesMapper;
   private final GradedCardMapper gradedCardMapper;
   private final ItemMapper itemMapper;
@@ -368,5 +370,27 @@ public class CollectionController {
               .created(location)
               .body(dto);
         });
+  }
+
+  @Operation(
+      summary = "Get collection estimation",
+      description = "Get collection estimation",
+      tags = {"Collection"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "Estimation found successfully",
+              content = @Content(schema = @Schema(implementation = CollectionEstimationDTO.class))),
+          @ApiResponse(
+              responseCode = "404",
+              description = "Collector not found",
+              content = @Content(schema = @Schema(implementation = ErrorDTO.class)))
+      })
+  @GetMapping(COLLECTOR_ESTIMATION)
+  public Mono<ResponseEntity<CollectionEstimationDTO>> findCollectionEstimation(@PathVariable final Long collectorId) {
+    return fetchCollectionEstimation.execute(collectorId)
+        .map(estimationMapper::toDTO)
+        .map(ResponseEntity::ok);
   }
 }
