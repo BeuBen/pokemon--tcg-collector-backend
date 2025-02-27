@@ -11,7 +11,7 @@
   <groupId>com.beuben</groupId>
   <artifactId>pokemon--tcg-collector-backend</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <name>pokemon--tcg-collector-backend</name>
   <description>pokemon--tcg-collector-backend</description>
   <properties>
